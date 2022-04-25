@@ -1,8 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-AdminMenu'
-version '1.0.0'
+author 'Disabled Coding'
+description 'Admin menu specifically made for the QBCore framework'
 
 ui_page 'html/index.html'
 
