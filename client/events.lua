@@ -52,10 +52,6 @@ RegisterNetEvent('qb-admin:client:SendReport', function(name, src, msg)
     TriggerServerEvent('qb-admin:server:SendReport', name, src, msg)
 end)
 
-RegisterNetEvent('qb-admin:client:SendStaffChat', function(name, msg)
-    TriggerServerEvent('qb-admin:server:Staffchat:addMessage', name, msg)
-end)
-
 RegisterNetEvent('qb-admin:client:SaveCar', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)

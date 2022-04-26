@@ -271,17 +271,16 @@ RegisterNetEvent('qb-admin:server:SendReport', function(name, targetSrc, msg)
     end
 end)
 
-RegisterNetEvent('qb-admin:server:Staffchat:addMessage', function(name, msg)
-    local src = source
-    if QBCore.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
-        if QBCore.Functions.IsOptin(src) then
-            TriggerClientEvent('chat:addMessage', src, {
+AddEventHandler('qb-admin:server:Staffchat:addMessage', function(name, msg)
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        if QBCore.Functions.IsOptin(v) then
+            TriggerClientEvent('chat:addMessage', v, {
                 color = {255, 0, 0},
                 multiline = true,
                 args = {Lang:t("info.staffchat")..name, msg}
             })
         end
-    end
+	end
 end)
 
 RegisterNetEvent('qb-admin:server:playsound', function(target, soundname, soundvolume, soundradius)

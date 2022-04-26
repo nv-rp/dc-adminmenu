@@ -47,7 +47,12 @@ end)
 
 QBCore.Commands.Add('staffchat', Lang:t("commands.staffchat_message"), {{name='message', help='Message'}}, true, function(source, args)
     local msg = table.concat(args, ' ')
-    TriggerClientEvent('qb-admin:client:SendStaffChat', -1, GetPlayerName(source), msg)
+    TriggerEvent('qb-admin:server:Staffchat:addMessage', GetPlayerName(source), msg)
+end, 'admin')
+
+QBCore.Commands.Add('s', Lang:t("commands.staffchat_message"), {{name='message', help='Message'}}, true, function(source, args)
+    local msg = table.concat(args, ' ')
+    TriggerEvent('qb-admin:server:Staffchat:addMessage', GetPlayerName(source), msg)
 end, 'admin')
 
 QBCore.Commands.Add('givenuifocus', Lang:t("commands.nui_focus"), {{name='id', help='Player id'}, {name='focus', help='Set focus on/off'}, {name='mouse', help='Set mouse on/off'}}, true, function(source, args)
