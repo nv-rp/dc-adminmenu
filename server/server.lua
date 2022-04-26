@@ -16,8 +16,9 @@ local permissions = { -- What should each permission be able to do
     ['setPermissions'] = 'god',
     ['cloth'] = 'admin',
     ['spawnVehicle'] = 'admin',
-    ['SaveCar'] = 'god',
+    ['savecar'] = 'god',
     ['playsound'] = 'god',
+    ['usemenu'] = 'admin',
 }
 local PermissionOrder = { -- Permission hierarchy order from top to bottom
     'god',
@@ -240,7 +241,7 @@ RegisterNetEvent('qb-admin:server:SaveCar', function(mods, vehicle, hash, plate)
     local result = MySQL.Sync.fetchAll('SELECT plate FROM player_vehicles WHERE plate = ?', { plate })
     
     if result[1] ~= nil then TriggerClientEvent('QBCore:Notify', src, Lang:t("error.failed_vehicle_owner"), 'error', 3000) return end
-    if not (QBCore.Functions.HasPermission(src, permissions['SaveCar']) or IsPlayerAceAllowed(src, 'command')) then return end
+    if not (QBCore.Functions.HasPermission(src, permissions['savecar']) or IsPlayerAceAllowed(src, 'command')) then return end
     
     MySQL.Async.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state) VALUES (?, ?, ?, ?, ?, ?, ?)', {
         Player.PlayerData.license,
@@ -260,7 +261,7 @@ RegisterNetEvent('qb-admin:server:getsounds', function()
     path = path:gsub('//', '/')..SoundPath
     local Files = scandir(path)
     
-    if not (QBCore.Functions.HasPermission(src, permissions['SaveCar']) or IsPlayerAceAllowed(src, 'command')) then return end
+    if not (QBCore.Functions.HasPermission(src, permissions['savecar']) or IsPlayerAceAllowed(src, 'command')) then return end
     
     TriggerClientEvent('qb-admin:client:getsounds', src, Files)
 end)
@@ -294,6 +295,16 @@ RegisterNetEvent('qb-admin:server:playsound', function(target, soundname, soundv
 
     TriggerClientEvent('qb-admin:client:playsound', target, soundname, soundvolume, soundradius)
 end)
+
+RegisterNetEvent('qb-admin:server:playsound', function(target, soundname, soundvolume, soundradius)
+    local src = source
+
+    if not (QBCore.Functions.HasPermission(src, permissions['usemenu']) or IsPlayerAceAllowed(src, 'command')) then return end
+
+    DropPlayer(src, Lang:t("info.dropped"))
+end)
+
+
 -- Commands
 
 QBCore.Commands.Add('blips', Lang:t("commands.blips_for_player"), {}, false, function(source)

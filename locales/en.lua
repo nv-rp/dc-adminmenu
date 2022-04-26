@@ -75,6 +75,7 @@ local Translations = {
         ["volume"] = "Volume",
         ["confirm_play"] = "Confirm (Play On Player)",
         ["confirm_play_radius"] = "Confirm (Play Around Player)",
+        ["dropped"] = "How are you able to do this?",
     },
     menu = {
         ["admin_menu"] = "Admin Menu",

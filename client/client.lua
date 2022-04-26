@@ -1429,6 +1429,7 @@ end)
 -- NetEvents
 RegisterNetEvent('qb-admin:client:openMenu', function()
     MenuV:OpenMenu(MainMenu)
+    TriggerServerEvent('qb-admin:server:check')
 end)
 
 RegisterNetEvent('qb-admin:client:ToggleCoords', function()
