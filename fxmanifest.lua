@@ -15,13 +15,14 @@ client_scripts {
     '@menuv/menuv.lua',
     'client/noclip.lua',
     'client/blipsnames.lua',
-    'client/client.lua',
+    'client/main.lua',
     'client/events.lua'
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
-    'server/server.lua'
+    'server/main.lua',
+    'server/commands.lua',
 }
 
 files { -- Credits to https://github.com/LVRP-BEN/bl_coords for clipboard copy method
