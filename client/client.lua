@@ -162,6 +162,7 @@ SelfMenuButton7:On('change', function()
         SetEntityInvincible(vehicle, true)
         SetEntityCanBeDamaged(vehicle, false)
         while true do
+            local vehicle = GetVehiclePedIsIn(ped, false)
             SetVehicleBodyHealth(vehicle, 1000.0)
             SetVehicleFixed(vehicle)
             SetVehicleEngineHealth(vehicle, 1000.0)
