@@ -161,13 +161,12 @@ SelfMenuButton7:On('change', function()
     if vehiclegodmode then
         SetEntityInvincible(vehicle, true)
         SetEntityCanBeDamaged(vehicle, false)
-        while true do
+        while vehiclegodmode do
             local vehicle = GetVehiclePedIsIn(ped, false)
             SetVehicleBodyHealth(vehicle, 1000.0)
             SetVehicleFixed(vehicle)
             SetVehicleEngineHealth(vehicle, 1000.0)
             Wait(250)
-            if not vehiclegodmode then break end
         end
     else
         SetEntityInvincible(vehicle, false)
@@ -224,12 +223,11 @@ SelfMenuButton9:On('change', function()
     local weapon = GetSelectedPedWeapon(ped)
     if infiniteammo then
         if GetAmmoInPedWeapon(ped, weapon) < 6 then SetAmmoInClip(ped, weapon, 10) Wait(50) end
-        while true do
+        while infiniteammo do
             local weapon = GetSelectedPedWeapon(ped)
             SetPedInfiniteAmmo(ped, true, weapon)
             RefillAmmoInstantly(ped)
             Wait(250)
-            if not infiniteammo then break end
         end
     else
         SetPedInfiniteAmmo(ped, false, weapon)
