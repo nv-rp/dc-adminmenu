@@ -27,14 +27,6 @@ local PermissionOrder = { -- Permission hierarchy order from top to bottom
 }
 
 -- Functions
-local function tablelength(table)
-    local count = 0
-    for _ in pairs(table) do
-        count = count + 1
-    end
-    return count
-end
-
 local function PermOrder(permission)
     for i = 1, #PermissionOrder do
         if PermissionOrder[i] == permission then
