@@ -221,7 +221,9 @@ local infiniteammo = false
 SelfMenuButton9:On('change', function()
     infiniteammo = not infiniteammo
     local ped = PlayerPedId()
+    local weapon = GetSelectedPedWeapon(ped)
     if infiniteammo then
+        if GetAmmoInPedWeapon(ped, weapon) < 6 then SetAmmoInClip(ped, weapon, 10) Wait(50) end
         while true do
             local weapon = GetSelectedPedWeapon(ped)
             SetPedInfiniteAmmo(ped, true, weapon)
