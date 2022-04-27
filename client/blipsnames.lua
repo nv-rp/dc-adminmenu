@@ -13,33 +13,27 @@ CreateThread(function()
 end)
 
 RegisterNetEvent('qb-admin:client:toggleBlips', function()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:haspermission', function(has)
-        if has then
-            if not ShowBlips then
-                ShowBlips = true
-                NetCheck1 = true
-                QBCore.Functions.Notify(Lang:t("success.blips_activated"), "success")
-            else
-                ShowBlips = false
-                QBCore.Functions.Notify(Lang:t("error.blips_deactivated"), "error")
-            end
-        end
-    end)
+    TriggerServerEvent('qb-admin:server:check')
+    if not ShowBlips then
+        ShowBlips = true
+        NetCheck1 = true
+        QBCore.Functions.Notify(Lang:t("success.blips_activated"), "success")
+    else
+        ShowBlips = false
+        QBCore.Functions.Notify(Lang:t("error.blips_deactivated"), "error")
+    end
 end)
 
 RegisterNetEvent('qb-admin:client:toggleNames', function()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:haspermission', function(has)
-        if has then
-            if not ShowNames then
-                ShowNames = true
-                NetCheck2 = true
-                QBCore.Functions.Notify(Lang:t("success.names_activated"), "success")
-            else
-                ShowNames = false
-                QBCore.Functions.Notify(Lang:t("error.names_deactivated"), "error")
-            end
-        end
-    end)
+    TriggerServerEvent('qb-admin:server:check')
+    if not ShowNames then
+        ShowNames = true
+        NetCheck2 = true
+        QBCore.Functions.Notify(Lang:t("success.names_activated"), "success")
+    else
+        ShowNames = false
+        QBCore.Functions.Notify(Lang:t("error.names_deactivated"), "error")
+    end
 end)
 
 RegisterNetEvent('qb-admin:client:Show', function(players)

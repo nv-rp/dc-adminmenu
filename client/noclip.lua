@@ -124,11 +124,8 @@ local function SetNoClip(val)
 end
 
 function ToggleNoClipMode()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:haspermission', function(has)
-        if has then
-            return SetNoClip(not isNoClipping)
-        end
-    end)
+    TriggerServerEvent('qb-admin:server:check')
+    return SetNoClip(not isNoClipping)
 end
 
 AddEventHandler('onResourceStop', function(resourceName)

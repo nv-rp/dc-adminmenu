@@ -1433,11 +1433,8 @@ RegisterNetEvent('qb-admin:client:openMenu', function()
 end)
 
 RegisterNetEvent('qb-admin:client:ToggleCoords', function()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:haspermission', function(has)
-        if has then
-            ToggleShowCoordinates()
-        end
-    end)
+    TriggerServerEvent('qb-admin:server:check')
+    ToggleShowCoordinates()
 end)
 
 RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)

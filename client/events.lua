@@ -20,11 +20,8 @@ local isSpectating = false
 -- Events
 
 AddEventHandler('qb-admin:client:inventory', function(targetPed)
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:haspermission', function(has)
-        if has then
-            TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", targetPed)
-        end
-    end)
+    TriggerServerEvent('qb-admin:server:check')
+    TriggerServerEvent("inventory:server:OpenInventory", "otherplayer", targetPed)
 end)
 
 RegisterNetEvent('qb-admin:client:spectate', function(targetPed, coords)
