@@ -17,7 +17,7 @@ client_scripts {
     'client/blipsnames.lua',
     'client/main.lua',
     'client/selfmenu.lua',
-    'client/playermenu.lua',
+    'client/playersmenu.lua',
     'client/events.lua'
 }
 
