@@ -182,6 +182,7 @@ local Translations = {
         ["ped"] = "Change into a different model",
         ["reset_ped"] = "Go back to your normal ped",
         ["ammo"] = "Give yourself infinite ammo",
+        ["player_info"] = "Extra Player Info",
     },
     time = {
         ["ban_length"] = "Ban Length",
@@ -278,6 +279,20 @@ local Translations = {
         ["80"] = "80",
         ["90"] = "90",
         ["100"] = "100",
+    },
+    label = {
+        ["name"] = "Name",
+        ["food"] = "Food",
+        ["water"] = "Water",
+        ["stress"] = "Stress",
+        ["armor"] = "Armor",
+        ["phone"] = "Phone Number",
+        ["craftingrep"] = "Crafting Reputation",
+        ["dealerrep"] = "Dealer Reputation",
+        ["cash"] = "Cash Balance",
+        ["bank"] = "Bank Balance",
+        ["job"] = "Current Job",
+        ["gang"] = "Current Gang",
     }
 }
 

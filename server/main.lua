@@ -294,19 +294,26 @@ QBCore.Functions.CreateCallback('qb-adminmenu:callback:getdealers', function(sou
 end)
 
 QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayers', function(source, cb)
+    if not QBCore.Functions.HasPermission(source, permissions['usemenu']) then return end
+
     local players = {}
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local targetped = GetPlayerPed(v)
         local ped = QBCore.Functions.GetPlayer(v)
         players[#players+1] = {
-            name = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(v) .. ')',
             id = v,
-            coords = GetEntityCoords(targetped),
-            cid = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname,
-            citizenid = ped.PlayerData.citizenid,
-            sources = GetPlayerPed(ped.PlayerData.source),
-            sourceplayer= ped.PlayerData.source
-
+            name = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(v) .. ')',
+            food = ped.PlayerData.metadata['hunger'],
+            water = ped.PlayerData.metadata['thirst'],
+            stress = ped.PlayerData.metadata['stress'],
+            armor = ped.PlayerData.metadata['armor'],
+            phone = ped.PlayerData.charinfo.phone,
+            craftingrep = ped.PlayerData.metadata['craftingrep'],
+            dealerrep = ped.PlayerData.metadata['dealerrep'],
+            cash = ped.PlayerData.money['cash'],
+            bank = ped.PlayerData.money['bank'],
+            job = ped.PlayerData.job.label .. ' | ' .. ped.PlayerData.job.grade.level,
+            gang = ped.PlayerData.gang.label,
         }
     end
         -- Sort players list by source ID (1,2,3,4,5, etc) --

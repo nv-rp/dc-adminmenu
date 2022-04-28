@@ -479,43 +479,43 @@ function OpenPlayerMenus()
                 icon = '💀',
                 label = Lang:t("menu.kill"),
                 value = "kill",
-                description = Lang:t("menu.kill").. " " .. PlayerDetails.cid
+                description = Lang:t("menu.kill").. " " .. PlayerDetails.name
             },
             [2] = {
                 icon = '🏥',
                 label = Lang:t("menu.revive"),
                 value = "revive",
-                description = Lang:t("menu.revive") .. " " .. PlayerDetails.cid
+                description = Lang:t("menu.revive") .. " " .. PlayerDetails.name
             },
             [3] = {
                 icon = '🥶',
                 label = Lang:t("menu.freeze"),
                 value = "freeze",
-                description = Lang:t("menu.freeze") .. " " .. PlayerDetails.cid
+                description = Lang:t("menu.freeze") .. " " .. PlayerDetails.name
             },
             [4] = {
                 icon = '👀',
                 label = Lang:t("menu.spectate"),
                 value = "spectate",
-                description = Lang:t("menu.spectate") .. " " .. PlayerDetails.cid
+                description = Lang:t("menu.spectate") .. " " .. PlayerDetails.name
             },
             [5] = {
                 icon = '➡️',
                 label = Lang:t("info.goto"),
                 value = "goto",
-                description = Lang:t("info.goto") .. " " .. PlayerDetails.cid .. Lang:t("info.position")
+                description = Lang:t("info.goto") .. " " .. PlayerDetails.name .. Lang:t("info.position")
             },
             [6] = {
                 icon = '⬅️',
                 label = Lang:t("menu.bring"),
                 value = "bring",
-                description = Lang:t("menu.bring") .. " " .. PlayerDetails.cid .. " " .. Lang:t("info.your_position")
+                description = Lang:t("menu.bring") .. " " .. PlayerDetails.name .. " " .. Lang:t("info.your_position")
             },
             [7] = {
                 icon = '🚗',
                 label = Lang:t("menu.sit_in_vehicle"),
                 value = "intovehicle",
-                description = Lang:t("desc.sit_in_veh_desc") .. " " .. PlayerDetails.cid .. " " .. Lang:t("desc.sit_in_veh_desc2")
+                description = Lang:t("desc.sit_in_veh_desc") .. " " .. PlayerDetails.name .. " " .. Lang:t("desc.sit_in_veh_desc2")
             }
         }
         for k, v in ipairs(elements) do
@@ -545,19 +545,19 @@ function OpenPlayerMenus()
                 icon = '🥾',
                 label = Lang:t("menu.kick"),
                 value = "kick",
-                description = Lang:t("menu.kick") .. " " .. PlayerDetails.cid .. " " .. Lang:t("info.reason")
+                description = Lang:t("menu.kick") .. " " .. PlayerDetails.name .. " " .. Lang:t("info.reason")
             },
             [2] = {
                 icon = '🚫',
                 label = Lang:t("menu.ban"),
                 value = "ban",
-                description = Lang:t("menu.ban") .. " " .. PlayerDetails.cid .. " " .. Lang:t("info.reason")
+                description = Lang:t("menu.ban") .. " " .. PlayerDetails.name .. " " .. Lang:t("info.reason")
             },
             [3] = {
                 icon = '🎟️',
                 label = Lang:t("menu.permissions"),
                 value = "perms",
-                description = Lang:t("info.give") .. " " .. PlayerDetails.cid .. " " .. Lang:t("menu.permissions")
+                description = Lang:t("info.give") .. " " .. PlayerDetails.name .. " " .. Lang:t("menu.permissions")
             }
         }
         for k, v in ipairs(elements) do
@@ -593,25 +593,25 @@ function OpenPlayerMenus()
                 icon = '🎒',
                 label = Lang:t("menu.open_inv"),
                 value = "inventory",
-                description = Lang:t("info.open") .. " " .. PlayerDetails.cid .. Lang:t("info.inventories")
+                description = Lang:t("info.open") .. " " .. PlayerDetails.name .. Lang:t("info.inventories")
             },
             [2] = {
                 icon = '👕',
                 label = Lang:t("menu.give_clothing_menu"),
                 value = "cloth",
-                description = Lang:t("desc.clothing_menu_desc") .. " " .. PlayerDetails.cid
+                description = Lang:t("desc.clothing_menu_desc") .. " " .. PlayerDetails.name
             },
             [3] = {
                 icon = '🏒',
                 label = Lang:t("menu.give_item_menu"),
                 value = "giveitem",
-                description = Lang:t("desc.give_item_menu_desc") .. " " .. PlayerDetails.cid
+                description = Lang:t("desc.give_item_menu_desc") .. " " .. PlayerDetails.name
             },
             [4] = {
                 icon = '🎵',
                 label = Lang:t("menu.play_sound"),
                 value = "sound",
-                description = Lang:t("desc.play_sound") .. " " .. PlayerDetails.cid
+                description = Lang:t("desc.play_sound") .. " " .. PlayerDetails.name
             },
         }
         for k, v in ipairs(elements) do
@@ -635,4 +635,48 @@ function OpenPlayerMenus()
             })
         end    
     end)
+    local PlayersButton4 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.name").. ': ' ..PlayerDetails.name,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton5 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.food").. ': ' ..PlayerDetails.food.. '%',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton6 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.water").. ': ' ..PlayerDetails.water.. '%',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton7 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.stress").. ': ' ..PlayerDetails.stress.. '%',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton8 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.armor").. ': ' ..PlayerDetails.armor.. '%',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton9 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.phone").. ': ' ..PlayerDetails.phone,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton10 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.craftingrep").. ': ' ..PlayerDetails.craftingrep,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton11 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.dealerrep").. ': ' ..PlayerDetails.dealerrep,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton12 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.cash").. ': ' ..PlayerDetails.cash.. '$',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton11 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.bank").. ': ' ..PlayerDetails.bank.. '$',
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton11 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.gang").. ': ' ..PlayerDetails.gang,
+        description = Lang:t("desc.player_info")
+    })
 end
