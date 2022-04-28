@@ -1,36 +1,38 @@
 QBCore = exports['qb-core']:GetCoreObject()
-local banlength = nil
-local showCoords = false
-local vehicleDevMode = false
-local banreason = 'Unknown'
-local kickreason = 'Unknown'
-local itemname = 'Unknown'
-local itemamount = 0
-local soundname = 'Unknown'
-local soundrange = 0
-local soundvolume = 0
-local menuLocation = 'topright' -- e.g. topright (default), topleft, bottomright, bottomleft
-local menuSize = 'size-125' -- e.g. 'size-100', 'size-110', 'size-125', 'size-150', 'size-175', 'size-200'
-local r, g, b = 220, 20, 60 -- red, green, blue values for the menu background
+banlength = nil
+showCoords = false
+vehicleDevMode = false
+PlayerDetails = nil
+banreason = 'Unknown'
+kickreason = 'Unknown'
+itemname = 'Unknown'
+itemamount = 0
+soundname = 'Unknown'
+soundrange = 0
+soundvolume = 0
+menuLocation = 'topright' -- e.g. topright (default), topleft, bottomright, bottomleft
+menuSize = 'size-125' -- e.g. 'size-100', 'size-110', 'size-125', 'size-150', 'size-175', 'size-200'
+r, g, b = 220, 20, 60 -- red, green, blue values for the menu background
 
-local MainMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:mainmenu')
-local SelfMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:selfmenu')
-local PlayerMenu = MenuV:CreateMenu(false, Lang:t("menu.online_players"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playermenu')
-local PlayerGeneralMenu = MenuV:CreateMenu(false, Lang:t("menu.player_general"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playergeneral')
-local PlayerAdminMenu = MenuV:CreateMenu(false, Lang:t("menu.player_administration"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playeradministration')
-local PlayerExtraMenu = MenuV:CreateMenu(false, Lang:t("menu.player_extra"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playerextra')
-local BanMenu = MenuV:CreateMenu(false, Lang:t("menu.ban"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:banmenu')
-local KickMenu = MenuV:CreateMenu(false, Lang:t("menu.kick"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:kickmenu')
-local PermsMenu = MenuV:CreateMenu(false, Lang:t("menu.permissions"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:permsmenu')
-local GiveItemMenu = MenuV:CreateMenu(false, Lang:t("menu.give_item_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:giveitemmenu')
-local SoundMenu = MenuV:CreateMenu(false, Lang:t("menu.play_sound"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:soundmenu')
-local ServerMenu = MenuV:CreateMenu(false, Lang:t("menu.manage_server"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:servermenu')
-local WeatherMenu = MenuV:CreateMenu(false, Lang:t("menu.weather_conditions"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:weathermenu')
-local VehicleMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehiclemenu')
-local VehCategorieMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_categories"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehcategoriemenu')
-local VehNameMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_models"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehnamemenu')
-local DealerMenu = MenuV:CreateMenu(false, Lang:t("menu.dealer_list"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:dealermenu')
-local DevMenu = MenuV:CreateMenu(false, Lang:t("menu.developer_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:devmenu')
+MainMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:mainmenu')
+SelfMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:selfmenu')
+PlayerMenu = MenuV:CreateMenu(false, Lang:t("menu.online_players"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playermenu')
+PlayerDetailMenu = MenuV:CreateMenu(false, Lang:t("info.options"), menuLocation, r, g, b, menuSize, 'qbcore', 'qb-admin:playerdetailmenu')
+PlayerGeneralMenu = MenuV:CreateMenu(false, Lang:t("menu.player_general"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playergeneral')
+PlayerAdminMenu = MenuV:CreateMenu(false, Lang:t("menu.player_administration"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playeradministration')
+PlayerExtraMenu = MenuV:CreateMenu(false, Lang:t("menu.player_extra"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:playerextra')
+BanMenu = MenuV:CreateMenu(false, Lang:t("menu.ban"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:banmenu')
+KickMenu = MenuV:CreateMenu(false, Lang:t("menu.kick"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:kickmenu')
+PermsMenu = MenuV:CreateMenu(false, Lang:t("menu.permissions"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:permsmenu')
+GiveItemMenu = MenuV:CreateMenu(false, Lang:t("menu.give_item_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:giveitemmenu')
+SoundMenu = MenuV:CreateMenu(false, Lang:t("menu.play_sound"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:soundmenu')
+ServerMenu = MenuV:CreateMenu(false, Lang:t("menu.manage_server"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:servermenu')
+WeatherMenu = MenuV:CreateMenu(false, Lang:t("menu.weather_conditions"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:weathermenu')
+VehicleMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehiclemenu')
+VehCategorieMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_categories"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehcategoriemenu')
+VehNameMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_models"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:vehnamemenu')
+DealerMenu = MenuV:CreateMenu(false, Lang:t("menu.dealer_list"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:dealermenu')
+DevMenu = MenuV:CreateMenu(false, Lang:t("menu.developer_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:devmenu')
 
 -- Main Menu
 local MainMenuButton1 = MainMenu:AddButton({
@@ -70,171 +72,6 @@ local MainMenuButton6 = MainMenu:AddButton({
     description = Lang:t("desc.developer_desc")
 })
 
--- SelfMenu
-local SelfMenuButton1 = SelfMenu:AddCheckbox({
-    icon = '🎥',
-    label = Lang:t("menu.noclip"),
-    value = SelfMenu,
-    description = Lang:t("desc.noclip_desc")
-})
-SelfMenuButton1:On('change', function(item, newValue, oldValue)
-    ToggleNoClipMode()
-end)
-
-local SelfMenuButton2 = SelfMenu:AddButton({
-    icon = '🏥',
-    label = Lang:t("menu.revive"),
-    value = 'revive',
-    description = Lang:t("desc.revive_desc")
-})
-SelfMenuButton2:On('select', function(item)
-    TriggerEvent('hospital:client:Revive', PlayerPedId())
-end)
-
-local SelfMenuButton3 = SelfMenu:AddCheckbox({
-    icon = '👻',
-    label = Lang:t("menu.invisible"),
-    value = SelfMenu,
-    description = Lang:t("desc.invisible_desc")
-})
-local invisible = false
-SelfMenuButton3:On('change', function(item, newValue, oldValue)
-    invisible = not invisible
-    if invisible then
-        while invisible do
-            Wait(0)
-            SetEntityVisible(PlayerPedId(), false, 0)
-        end
-        SetEntityVisible(PlayerPedId(), true, 0)
-    end
-
-end)
-
-local SelfMenuButton4 = SelfMenu:AddCheckbox({
-    icon = '⚡',
-    label = Lang:t("menu.god"),
-    value = SelfMenu,
-    description = Lang:t("desc.god_desc")
-})
-local godmode = false
-SelfMenuButton4:On('change', function(item, newValue, oldValue)
-    if not godmode then
-        godmode = true
-        SetPlayerInvincible(PlayerId(), true)
-    else
-        godmode = false
-        SetPlayerInvincible(PlayerId(), false)
-    end
-end)
-
-local SelfMenuButton5 = SelfMenu:AddCheckbox({
-    icon = '📋',
-    label = Lang:t("menu.names"),
-    value = SelfMenu,
-    description = Lang:t("desc.names_desc")
-})
-SelfMenuButton5:On('change', function()
-    TriggerEvent('qb-admin:client:toggleNames')
-end)
-
-local SelfMenuButton6 = SelfMenu:AddCheckbox({
-    icon = '📍',
-    label = Lang:t("menu.blips"),
-    value = SelfMenu,
-    description = Lang:t("desc.blips_desc")
-})
-SelfMenuButton6:On('change', function()
-    TriggerEvent('qb-admin:client:toggleBlips')
-end)
-
-local SelfMenuButton7 = SelfMenu:AddCheckbox({
-    icon = '🚔',
-    label = Lang:t("menu.vehicle_godmode"),
-    value = SelfMenu,
-    description = Lang:t("desc.vehicle_godmode")
-})
-local vehiclegodmode = false
-SelfMenuButton7:On('change', function()
-    vehiclegodmode = not vehiclegodmode
-    local ped = PlayerPedId()
-    local vehicle = GetVehiclePedIsIn(ped, false)
-    if vehiclegodmode then
-        SetEntityInvincible(vehicle, true)
-        SetEntityCanBeDamaged(vehicle, false)
-        while vehiclegodmode do
-            local vehicle = GetVehiclePedIsIn(ped, false)
-            SetVehicleBodyHealth(vehicle, 1000.0)
-            SetVehicleFixed(vehicle)
-            SetVehicleEngineHealth(vehicle, 1000.0)
-            Wait(250)
-        end
-    else
-        SetEntityInvincible(vehicle, false)
-        SetEntityCanBeDamaged(vehicle, true)
-    end
-end)
-
-local SelfMenuButton8 = SelfMenu:AddSlider({
-    icon = '📍',
-    label = Lang:t("menu.ped"),
-    value = '',
-    values = {{
-        label = Lang:t("menu.ped"),
-        value = 'ped',
-        description = Lang:t("desc.ped")
-    }, {
-        label = Lang:t("menu.reset_ped"),
-        value ='reset',
-        description = Lang:t("desc.reset_ped")
-    }},
-    select = function(btn, newValue, oldValue)
-        if newValue == "ped" then
-            local dialog = exports['qb-input']:ShowInput({
-                header = Lang:t("desc.ped"),
-                submitText = "Confirm",
-                inputs = {
-                    {
-                        text = "a_m_m_salton_03",
-                        name = "model",
-                        type = "text",
-                        isRequired = true
-                    }
-                }
-            })
-            if dialog then
-                TriggerServerEvent('QBCore:CallCommand', "setmodel", {dialog.model})
-            end
-        else
-            ExecuteCommand('refreshskin')
-        end
-    end
-})
-
-local SelfMenuButton9 = SelfMenu:AddCheckbox({
-    icon = '🔫',
-    label = Lang:t("menu.ammo"),
-    value = SelfMenu,
-    description = Lang:t("desc.ammo")
-})
-local infiniteammo = false
-SelfMenuButton9:On('change', function()
-    infiniteammo = not infiniteammo
-    local ped = PlayerPedId()
-    local weapon = GetSelectedPedWeapon(ped)
-    if infiniteammo then
-        if GetAmmoInPedWeapon(ped, weapon) < 6 then SetAmmoInClip(ped, weapon, 10) Wait(50) end
-        while infiniteammo do
-            local weapon = GetSelectedPedWeapon(ped)
-            SetPedInfiniteAmmo(ped, true, weapon)
-            RefillAmmoInstantly(ped)
-            Wait(250)
-        end
-    else
-        SetPedInfiniteAmmo(ped, false, weapon)
-    end
-end)
-
--- PlayerMenu
 local function OpenBanMenu(banplayer)
     MenuV:OpenMenu(BanMenu)
     BanMenu:ClearItems()

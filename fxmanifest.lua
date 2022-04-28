@@ -16,6 +16,7 @@ client_scripts {
     'client/noclip.lua',
     'client/blipsnames.lua',
     'client/main.lua',
+    'client/selfmenu.lua',
     'client/events.lua'
 }
 
