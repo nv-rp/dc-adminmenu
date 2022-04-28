@@ -28,9 +28,9 @@ local PermissionOrder = { -- Permission hierarchy order from top to bottom
 }
 
 -- Functions
-local function PermOrder(permission)
+local function PermOrder(source)
     for i = 1, #PermissionOrder do
-        if PermissionOrder[i] == permission then
+        if IsPlayerAceAllowed(source, PermissionOrder[i]) then
             return i
         end
     end
@@ -50,7 +50,7 @@ RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
             cid = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname,
             citizenid = ped.PlayerData.citizenid,
             sources = GetPlayerPed(ped.PlayerData.source),
-            sourceplayer= ped.PlayerData.source
+            sourceplayer = ped.PlayerData.source
         }
     end
     TriggerClientEvent('qb-admin:client:Show', src, players)
@@ -61,7 +61,7 @@ RegisterNetEvent('qb-admin:server:kill', function(player)
     local target = player.id
 
     if not (QBCore.Functions.HasPermission(src, permissions['kill'])) then return end
-    if PermOrder(QBCore.Functions.GetPermission(src)) > PermOrder(QBCore.Functions.GetPermission(target)) then return end
+    if PermOrder(src) > PermOrder(target) then return end
 
     TriggerClientEvent('hospital:client:KillPlayer', target)
 end)
@@ -79,7 +79,7 @@ RegisterNetEvent('qb-admin:server:freeze', function(player)
     local target = GetPlayerPed(player.id)
     
     if not (QBCore.Functions.HasPermission(src, permissions['freeze'])) then return end
-    if PermOrder(QBCore.Functions.GetPermission(src)) > PermOrder(QBCore.Functions.GetPermission(player.id)) then return end
+    if PermOrder(src) > PermOrder(player.id) then return end
     if IsFrozen[target] == nil then IsFrozen[target] = false end
 
     if IsFrozen[target] then
@@ -143,7 +143,7 @@ RegisterNetEvent('qb-admin:server:kick', function(player, reason)
     local target = player.id
     
     if not (QBCore.Functions.HasPermission(src, permissions['kick'])) then return end
-    if PermOrder(QBCore.Functions.GetPermission(src)) > PermOrder(QBCore.Functions.GetPermission(target)) then return end
+    if PermOrder(src) > PermOrder(target) then return end
     
     TriggerEvent('qb-log:server:CreateLog', 'bans', 'Player Kicked', 'red', string.format('%s was kicked by %s for %s', GetPlayerName(target), GetPlayerName(src), reason), true)
     DropPlayer(target, Lang:t("info.kicked_server") .. ':\n' .. reason .. '\n\n' .. Lang:t("info.check_discord") .. QBCore.Config.Server.discord)
@@ -157,7 +157,7 @@ RegisterNetEvent('qb-admin:server:ban', function(player, time, reason)
     local timeTable = os.date('*t', banTime)
     
     if not (QBCore.Functions.HasPermission(src, permissions['ban'])) then return end
-    if PermOrder(QBCore.Functions.GetPermission(src)) > PermOrder(QBCore.Functions.GetPermission(target)) then return end
+    if PermOrder(src) > PermOrder(target) then return end
 
     MySQL.Async.insert('INSERT INTO bans (name, license, discord, ip, reason, expire, bannedby) VALUES (?, ?, ?, ?, ?, ?, ?)', {
         GetPlayerName(target),
@@ -184,7 +184,7 @@ RegisterNetEvent('qb-admin:server:setPermissions', function(targetId, group)
     local src = source
 
     if not (QBCore.Functions.HasPermission(src, permissions['setPermissions'])) then return end
-    if PermOrder(QBCore.Functions.GetPermission(src)) > PermOrder(group[1].rank) then return end
+    if PermOrder(src) > PermOrder(targetId) then return end
 
     QBCore.Functions.AddPermission(targetId, group[1].rank)
     TriggerClientEvent('QBCore:Notify', targetId, Lang:t("info.rank_level")..group[1].label)
