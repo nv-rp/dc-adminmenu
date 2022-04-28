@@ -18,6 +18,7 @@ client_scripts {
     'client/main.lua',
     'client/selfmenu.lua',
     'client/playersmenu.lua',
+    'client/servermenu.lua',
     'client/events.lua'
 }
 
