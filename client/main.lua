@@ -77,73 +77,11 @@ local MainMenuButton4 = MainMenu:AddButton({
     description = Lang:t("desc.vehicles_desc")
 })
 local MainMenuButton5 = MainMenu:AddButton({
-    icon = '💊',
-    label = Lang:t("menu.dealer_list"),
-    value = DealerMenu,
-    description = Lang:t("desc.dealer_desc")
-})
-local MainMenuButton6 = MainMenu:AddButton({
     icon = '🔧',
     label = Lang:t("menu.developer_options"),
     value = DevMenu,
     description = Lang:t("desc.developer_desc")
 })
-
--- Dealer Menu
-local function OpenDealerMenu(dealer)
-    local EditDealer = MenuV:CreateMenu(false, Lang:t("menu.edit_dealer") .. dealer["name"], menuLocation, r, g, b, menuSize, 'qbcore', 'menuv')
-    EditDealer:ClearItems()
-    MenuV:OpenMenu(EditDealer)
-    local elements = {
-        [1] = {
-            icon = '➡️',
-            label = Lang:t("info.goto") .. " " .. dealer["name"],
-            value = "goto",
-            description = Lang:t("desc.dealergoto_desc") .. " " .. dealer["name"]
-        },
-        [2] = {
-            icon = "☠",
-            label = Lang:t("info.remove") .. " " .. dealer["name"],
-            value = "remove",
-            description = Lang:t("desc.dealerremove_desc") .. " " .. dealer["name"]
-        }
-    }
-    for k, v in ipairs(elements) do
-        local EditDealerButton = EditDealer:AddButton({
-            icon = v.icon,
-            label = ' ' .. v.label,
-            value = v.value,
-            description = v.description,
-            select = function(btn)
-                local values = btn.Value
-                if values == "goto" then
-                    TriggerServerEvent('QBCore:CallCommand', "dealergoto", { dealer["name"] })
-                elseif values == "remove" then
-                    TriggerServerEvent('QBCore:CallCommand', "deletedealer", { dealer["name"] })
-                    EditDealer:Close()
-                    DealerMenu:Close()
-                end
-            end
-        })
-    end
-end
-
-MainMenuButton5:On('Select', function(item)
-    DealerMenu:ClearItems()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getdealers', function(dealers)
-        for k, v in pairs(dealers) do
-            local DealerMenuButton1 = DealerMenu:AddButton({
-                label = v["name"],
-                value = v,
-                description = Lang:t("menu.dealer_name"),
-                select = function(btn)
-                    local select = btn.Value
-                    OpenDealerMenu(select)
-                end
-            })
-        end
-    end)
-end)
 
 -- NetEvents
 RegisterNetEvent('qb-admin:client:openMenu', function()

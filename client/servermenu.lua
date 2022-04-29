@@ -214,3 +214,63 @@ ServerMenuButton2:On("select", function(item, value)
     TriggerServerEvent("qb-weathersync:server:setTime", value, value)
     QBCore.Functions.Notify(Lang:t("time.changed", {time = value}))
 end)
+
+local ServerMenuButton3 = ServerMenu:AddButton({
+    icon = '💊',
+    label = Lang:t("menu.dealer_list"),
+    value = DealerMenu,
+    description = Lang:t("desc.dealer_desc")
+})
+local function OpenDealerMenu(dealer)
+    local EditDealer = MenuV:CreateMenu(false, Lang:t("menu.edit_dealer") .. dealer["name"], menuLocation, r, g, b, menuSize, 'qbcore', 'menuv')
+    EditDealer:ClearItems()
+    MenuV:OpenMenu(EditDealer)
+    local elements = {
+        [1] = {
+            icon = '➡️',
+            label = Lang:t("info.goto") .. " " .. dealer["name"],
+            value = "goto",
+            description = Lang:t("desc.dealergoto_desc") .. " " .. dealer["name"]
+        },
+        [2] = {
+            icon = "☠",
+            label = Lang:t("info.remove") .. " " .. dealer["name"],
+            value = "remove",
+            description = Lang:t("desc.dealerremove_desc") .. " " .. dealer["name"]
+        }
+    }
+    for k, v in ipairs(elements) do
+        local EditDealerButton = EditDealer:AddButton({
+            icon = v.icon,
+            label = ' ' .. v.label,
+            value = v.value,
+            description = v.description,
+            select = function(btn)
+                local values = btn.Value
+                if values == "goto" then
+                    TriggerServerEvent('QBCore:CallCommand', "dealergoto", { dealer["name"] })
+                elseif values == "remove" then
+                    TriggerServerEvent('QBCore:CallCommand', "deletedealer", { dealer["name"] })
+                    EditDealer:Close()
+                    DealerMenu:Close()
+                end
+            end
+        })
+    end
+end
+ServerMenuButton3:On('Select', function(item)
+    DealerMenu:ClearItems()
+    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getdealers', function(dealers)
+        for k, v in pairs(dealers) do
+            local DealerMenuButton1 = DealerMenu:AddButton({
+                label = v["name"],
+                value = v,
+                description = Lang:t("menu.dealer_name"),
+                select = function(btn)
+                    local select = btn.Value
+                    OpenDealerMenu(select)
+                end
+            })
+        end
+    end)
+end)
