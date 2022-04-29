@@ -20,8 +20,7 @@ client_scripts {
     'client/playersmenu.lua',
     'client/servermenu.lua',
     'client/vehiclemenu.lua',
-    'client/devmenu.lua',
-    'client/events.lua'
+    'client/devmenu.lua'
 }
 
 server_scripts {
