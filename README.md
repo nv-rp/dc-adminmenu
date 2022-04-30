@@ -1,7 +1,43 @@
-## NOT READY TO USE YET
-# dc-adminmenu
+## dc-adminmenu
 
-![image](https://user-images.githubusercontent.com/57848836/134793591-1ff62665-01e6-4e63-941b-a78dff41ea37.png)
+An improved version of qb-adminmenu. With better logic and more features.
+As always more features planned. Pull requests are welcome as well.
+
+# Admin Options
+![image](https://cdn.discordapp.com/attachments/967850345306914826/969989912042565642/unknown.png)
+
+# Player Management
+1. General Options
+    - Kill
+    - Revive
+    - Freeze
+    - Spectate
+    - Go to
+    - Bring
+    - Sit in vehicle
+2. Administration
+    - Kick
+    - Ban
+    - Permissions
+3. Extra Options
+    - Open Inventory
+    - Give Clothing Menu
+    - Give An Item
+    - Play A Sound
+4. Player Information List
+![image](https://cdn.discordapp.com/attachments/967850345306914826/969990743747854366/unknown.png)
+
+# Server Management
+![image](https://cdn.discordapp.com/attachments/967850345306914826/969991765396434984/unknown.png)
+
+# Vehicles
+![image](https://cdn.discordapp.com/attachments/967850345306914826/969991973039669308/unknown.png)
+
+# Developer Options
+![image](https://cdn.discordapp.com/attachments/967850345306914826/969992103356665886/unknown.png)
+
+# Dependencies
+Makes use of both [qb-menu](https://github.com/qbcore-framework/qb-menu) and [qb-input](https://github.com/qbcore-framework/qb-input).
 
 # License
 
