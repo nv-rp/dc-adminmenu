@@ -25,6 +25,7 @@ As always more features planned. Pull requests are welcome as well.
     - Give An Item
     - Play A Sound
 4. Player Information List
+
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969990743747854366/unknown.png)
 
 # Server Management
