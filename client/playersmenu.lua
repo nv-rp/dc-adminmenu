@@ -1,3 +1,12 @@
+local soundname = 'Unknown'
+local soundrange = 0
+local soundvolume = 0
+local itemname = 'Unknown'
+local itemamount = 0
+local banreason = 'Unknown'
+local banlength = nil
+local kickreason = 'Unknown'
+
 local function OpenBanMenu(banplayer)
     MenuV:OpenMenu(BanMenu)
     BanMenu:ClearItems()
@@ -735,3 +744,11 @@ function OpenPlayerMenus()
         description = Lang:t("desc.player_info")
     })
 end
+
+RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)
+    soundname = data.name
+end)
+
+RegisterNetEvent('qb-admin:client:openItemMenu', function(data)
+    itemname = data.name
+end)

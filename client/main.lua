@@ -1,18 +1,8 @@
 QBCore = exports['qb-core']:GetCoreObject()
-banlength = nil
-showCoords = false
-vehicleDevMode = false
 PlayerDetails = nil
-banreason = 'Unknown'
-kickreason = 'Unknown'
-itemname = 'Unknown'
-itemamount = 0
-soundname = 'Unknown'
-soundrange = 0
-soundvolume = 0
 menuLocation = 'topright' -- e.g. topright (default), topleft, bottomright, bottomleft
 menuSize = 'size-125' -- e.g. 'size-100', 'size-110', 'size-125', 'size-150', 'size-175', 'size-200'
-r, g, b = 220, 20, 60 -- red, green, blue values for the menu background
+r, g, b = 20, 255, 236 -- red, green, blue values for the menu background
 
 MainMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:mainmenu')
 SelfMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:selfmenu')
@@ -91,14 +81,6 @@ end)
 RegisterNetEvent('qb-admin:client:ToggleCoords', function()
     TriggerServerEvent('qb-admin:server:check')
     ToggleShowCoordinates()
-end)
-
-RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)
-    soundname = data.name
-end)
-
-RegisterNetEvent('qb-admin:client:openItemMenu', function(data)
-    itemname = data.name
 end)
 
 RegisterNetEvent('qb-admin:client:playsound', function(name, volume, radius)
