@@ -1,38 +1,21 @@
 -- Variables
 QBCore = exports['qb-core']:GetCoreObject()
-local SoundScriptName = 'interact-sound'
-local SoundPath = '/client/html/sounds'
 local Sounds = {}
 local IsFrozen = {}
-local permissions = { -- What should each permission be able to do
-    ['kill'] = 'god',
-    ['revive'] = 'god',
-    ['freeze'] = 'admin',
-    ['spectate'] = 'admin',
-    ['goto'] = 'admin',
-    ['bring'] = 'admin',
-    ['intovehicle'] = 'admin',
-    ['kick'] = 'admin',
-    ['ban'] = 'god',
-    ['setPermissions'] = 'god',
-    ['cloth'] = 'admin',
-    ['spawnVehicle'] = 'admin',
-    ['savecar'] = 'god',
-    ['playsound'] = 'admin',
-    ['usemenu'] = 'admin',
-    ['routingbucket'] = 'admin',
-}
-local PermissionOrder = { -- Permission hierarchy order from top to bottom
-    'god',
-    'admin',
-    'user'
-}
 
--- Functions
+--- Checks what permission the source has and what their ranking is in the permission hierachy.
+--- @param source number - The player's ID
+--- @return number - Ranking of the player in the permission hierachy
 local function PermOrder(source)
     for i = 1, #PermissionOrder do
-        if IsPlayerAceAllowed(source, PermissionOrder[i]) then
-            return i
+        if not OldPermissionSystem then
+            if IsPlayerAceAllowed(source, PermissionOrder[i]) then
+                return i
+            end
+        else
+            if QBCore.Functions.GetPermission(source, PermissionOrder[i]) then
+                return i
+            end
         end
     end
 end
@@ -47,7 +30,6 @@ local function CheckRoutingbucket(source, target)
     if sourceBucket ~= targetBucket then SetPlayerRoutingBucket(source, tonumber(targetBucket)) end
 end
 
--- Events
 RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
     local src = source
     local players = {}
