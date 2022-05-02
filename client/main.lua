@@ -97,6 +97,10 @@ RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)
     soundname = data.name
 end)
 
+RegisterNetEvent('qb-admin:client:openItemMenu', function(data)
+    itemname = data.name
+end)
+
 RegisterNetEvent('qb-admin:client:playsound', function(name, volume, radius)
     TriggerServerEvent('InteractSound_SV:PlayWithinDistance', radius, name, volume)
 end)

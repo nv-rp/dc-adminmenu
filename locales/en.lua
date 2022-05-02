@@ -134,6 +134,8 @@ local Translations = {
         ["ped"] = "Change Ped Model",
         ["reset_ped"] = "Reset Ped Model",
         ["ammo"] = "Infinite Ammo",
+        ["item_list"] = "Item List",
+        ["item_self"] = "Self",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -172,7 +174,6 @@ local Translations = {
         ["player_administration"] = "Ban, Kick or give perms to a player",
         ["player_extra_desc"] = "Extra options like giving items etc.",
         ["give_item_menu_desc"] = "Give a specific item to",
-        ["item"] = "Which item to give",
         ["amount"] = "Amount to give",
         ["play_sound"] = "Play A Sound On",
         ["sound"] = "What is the sound file name",
@@ -183,6 +184,8 @@ local Translations = {
         ["reset_ped"] = "Go back to your normal ped",
         ["ammo"] = "Give yourself infinite ammo",
         ["player_info"] = "Extra Player Info",
+        ["item_list"] = "Get A Full List Of All Your Items In Your Shared",
+        ["item_self"] = "Fill In The Item Name Yourself",
     },
     time = {
         ["ban_length"] = "Ban Length",

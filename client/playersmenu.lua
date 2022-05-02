@@ -216,26 +216,58 @@ end
 local function OpenGiveItemMenu(player)
     MenuV:OpenMenu(GiveItemMenu)
     GiveItemMenu:ClearItems()
-    local GiveItemMenuButton1 = GiveItemMenu:AddButton({
+    local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
         icon = '',
         label = Lang:t("info.item"),
         value = "reason",
-        description = Lang:t("desc.item"),
-        select = function(btn)
-            local dialog = exports['qb-input']:ShowInput({
-                header = Lang:t("desc.item"),
-                submitText = "Confirm",
-                inputs = {
+        values = {{
+            label = Lang:t("menu.item_list"),
+            value = '',
+            description = Lang:t("desc.item_list")
+        }, {
+            label = Lang:t("menu.item_self"),
+            value = 'Self',
+            description = Lang:t("desc.item_self")
+        }},
+        select = function(btn, newValue, oldValue)
+            if newValue == 'Self' then
+                local dialog = exports['qb-input']:ShowInput({
+                    header = Lang:t("desc.item_self"),
+                    submitText = "Confirm",
+                    inputs = {
+                        {
+                            text = "Lockpick",
+                            name = "item",
+                            type = "text",
+                            isRequired = true
+                        }
+                    }
+                })
+                if dialog then
+                    itemname = dialog.item
+                end
+            else
+                local ItemMenu = {
                     {
-                        text = "Lockpick",
-                        name = "item",
-                        type = "text",
-                        isRequired = true
+                        header = Lang:t('info.item'),
+                        isMenuHeader = true
                     }
                 }
-            })
-            if dialog then
-                itemname = dialog.item
+    
+                for k, v in pairs(QBCore.Shared.Items) do
+                    ItemMenu[#ItemMenu + 1] = {
+                        header = v['label'],
+                        txt = "",
+                        params = {
+                            event = "qb-admin:client:openItemMenu",
+                            args = {
+                                name = v['name']
+                            }
+                        }
+                    }
+                end
+    
+                exports['qb-menu']:openMenu(ItemMenu)
             end
         end
     })
