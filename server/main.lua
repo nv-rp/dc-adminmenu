@@ -20,6 +20,7 @@ local permissions = { -- What should each permission be able to do
     ['savecar'] = 'god',
     ['playsound'] = 'admin',
     ['usemenu'] = 'admin',
+    ['routingbucket'] = 'admin',
 }
 local PermissionOrder = { -- Permission hierarchy order from top to bottom
     'god',
@@ -34,6 +35,16 @@ local function PermOrder(source)
             return i
         end
     end
+end
+
+--- Checks if the source is inside of the target's routingbucket
+--- if not set the source's routingbucket to the target's
+--- @param source number - The player's ID
+--- @param target number - The player's ID
+local function CheckRoutingbucket(source, target)
+    local sourceBucket = GetPlayerRoutingBucket(source)
+    local targetBucket = GetPlayerRoutingBucket(target)
+    if sourceBucket ~= targetBucket then SetPlayerRoutingBucket(source, tonumber(targetBucket)) end
 end
 
 -- Events
@@ -108,6 +119,7 @@ RegisterNetEvent('qb-admin:server:goto', function(player)
     
     if not (QBCore.Functions.HasPermission(src, permissions['goto'])) then return end
 
+    CheckRoutingbucket(src, player.id)
     SetEntityCoords(admin, coords)
 end)
 
@@ -118,7 +130,8 @@ RegisterNetEvent('qb-admin:server:bring', function(player)
     local target = GetPlayerPed(player.id)
     
     if not (QBCore.Functions.HasPermission(src, permissions['bring'])) then return end
-    
+
+    CheckRoutingbucket(player.id, src)
     SetEntityCoords(target, coords)
 end)
 
@@ -136,6 +149,15 @@ RegisterNetEvent('qb-admin:server:intovehicle', function(player)
     
     SetPedIntoVehicle(admin, vehicle, seat)
     TriggerClientEvent('QBCore:Notify', src, Lang:t("success.entered_vehicle"), 'success', 5000)
+end)
+
+RegisterNetEvent('qb-admin:server:routingbucket', function(player, bucket)
+    local src = source
+
+    if not (QBCore.Functions.HasPermission(src, permissions['routingbucket'])) then return end
+    if GetPlayerRoutingBucket(player.id) == tonumber(bucket) then return end
+
+    SetPlayerRoutingBucket(player.id, tonumber(bucket))
 end)
 
 RegisterNetEvent('qb-admin:server:kick', function(player, reason)
@@ -330,4 +352,8 @@ CreateThread(function()
     for filename in io.popen('dir "'..directory..'" /b'):lines() do
         Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
     end
+end)
+
+RegisterCommand('routing', function(source, args, raw)
+    print(GetPlayerRoutingBucket(source))
 end)

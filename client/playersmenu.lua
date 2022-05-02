@@ -561,7 +561,30 @@ function OpenPlayerMenus()
                     TriggerServerEvent('qb-admin:server:'..values, PlayerDetails)
                 end
             })
-        end    
+        end
+        local PlayerGeneralRoutingbucket = PlayerGeneralMenu:AddButton({
+            icon = '🧿',
+            label = Lang:t("menu.routingbucket"),
+            value = "routingbucket",
+            description = Lang:t("desc.routingbucket"),
+            select = function(btn)
+                local dialog = exports['qb-input']:ShowInput({
+                    header = Lang:t("desc.routingbucket"),
+                    submitText = "Confirm",
+                    inputs = {
+                        {
+                            text = "5",
+                            name = "bucket",
+                            type = "number",
+                            isRequired = true
+                        }
+                    }
+                })
+                if dialog then
+                    TriggerServerEvent('qb-admin:server:routingbucket', PlayerDetails, dialog.bucket)
+                end
+            end
+        })
     end)
 
     local PlayersButton2 = PlayerDetailMenu:AddButton({

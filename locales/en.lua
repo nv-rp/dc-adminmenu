@@ -136,6 +136,7 @@ local Translations = {
         ["ammo"] = "Infinite Ammo",
         ["item_list"] = "Item List",
         ["item_self"] = "Self",
+        ["routingbucket"] = "Routingbucket",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -186,6 +187,7 @@ local Translations = {
         ["player_info"] = "Extra Player Info",
         ["item_list"] = "Get A Full List Of All Your Items In Your Shared",
         ["item_self"] = "Fill In The Item Name Yourself",
+        ["routingbucket"] = "Teleport This Player To A Different Routingbucket",
     },
     time = {
         ["ban_length"] = "Ban Length",
