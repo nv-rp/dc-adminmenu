@@ -652,6 +652,12 @@ function OpenPlayerMenus()
                 value = "sound",
                 description = Lang:t("desc.play_sound") .. " " .. PlayerDetails.name
             },
+            [5] = {
+                icon = '🔇',
+                label = Lang:t("menu.mute_player"),
+                value = "mute",
+                description = Lang:t("desc.mute_player")
+            },
         }
         for k, v in ipairs(elements) do
             local PlayerExtraButton = PlayerExtraMenu:AddButton({
@@ -667,6 +673,8 @@ function OpenPlayerMenus()
                         MenuV:OpenMenu(GiveItemMenu)
                     elseif values == 'sound' then
                         MenuV:OpenMenu(SoundMenu)
+                    elseif values == 'mute' then
+                        exports['pma-voice']:toggleMutePlayer(PlayerDetails.id)
                     else
                         TriggerServerEvent('qb-admin:server:'..values, PlayerDetails)
                     end
@@ -716,6 +724,10 @@ function OpenPlayerMenus()
     })
     local PlayersButton11 = PlayerDetailMenu:AddButton({
         label = Lang:t("label.gang").. ': ' ..PlayerDetails.gang,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton12 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
         description = Lang:t("desc.player_info")
     })
 end

@@ -21,6 +21,7 @@ permissions = {
     ['playsound'] = 'admin',
     ['usemenu'] = 'admin',
     ['routingbucket'] = 'admin',
+    ['getradiolist'] = 'admin',
 }
 
 --- Permission hierarchy order from top to bottom. Important for the PermOrder function.

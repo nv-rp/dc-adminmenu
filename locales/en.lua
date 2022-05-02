@@ -76,6 +76,7 @@ local Translations = {
         ["confirm_play"] = "Confirm (Play On Player)",
         ["confirm_play_radius"] = "Confirm (Play Around Player)",
         ["dropped"] = "How are you able to do this?",
+        ["radio_list"] = "Player List From Radio",
     },
     menu = {
         ["admin_menu"] = "Admin Menu",
@@ -137,6 +138,7 @@ local Translations = {
         ["item_list"] = "Item List",
         ["item_self"] = "Self",
         ["routingbucket"] = "Routingbucket",
+        ["mute_player"] = "Mute Player",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -188,6 +190,8 @@ local Translations = {
         ["item_list"] = "Get A Full List Of All Your Items In Your Shared",
         ["item_self"] = "Fill In The Item Name Yourself",
         ["routingbucket"] = "Teleport This Player To A Different Routingbucket",
+        ["mute_player"] = "Mute Player's Mumble",
+        ["radio_list"] = "Get A Full List Of Players Inside A Certain Radio Frequency",
     },
     time = {
         ["ban_length"] = "Ban Length",
@@ -298,6 +302,7 @@ local Translations = {
         ["bank"] = "Bank Balance",
         ["job"] = "Current Job",
         ["gang"] = "Current Gang",
+        ["radio"] = "Radio Frequency",
     }
 }
 

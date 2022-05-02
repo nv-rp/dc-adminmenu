@@ -245,10 +245,9 @@ end)
 
 RegisterNetEvent('qb-admin:server:getsounds', function()
     local src = source
-    print(Sounds)
+
     if not (QBCore.Functions.HasPermission(src, permissions['playsound'])) then return end
-    print(Sounds)
-    
+
     TriggerClientEvent('qb-admin:client:getsounds', src, Sounds)
 end)
 
@@ -283,6 +282,23 @@ RegisterNetEvent('qb-admin:server:playsound', function(target, soundname, soundv
     if not (QBCore.Functions.HasPermission(src, permissions['playsound'])) then return end
 
     TriggerClientEvent('qb-admin:client:playsound', target, soundname, soundvolume, soundradius)
+end)
+
+RegisterNetEvent('qb-admin:server:getradiolist', function(channel)
+    local src = source
+    local list = exports['pma-voice']:getPlayersInRadioChannel(tonumber(channel))
+    local Players = { id, name }
+
+    if not (QBCore.Functions.HasPermission(src, permissions['getradiolist'])) then return end
+
+    for targetSource, isTalking in pairs(list) do -- cheers Knight who shall not be named
+        local Player = QBCore.Functions.GetPlayer(targetSource)
+        Players[#Players + 1] = {
+            id = targetSource,
+            name = Player.PlayerData.charinfo.firstname .. ' ' .. Player.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(targetSource) .. ')'
+        }
+    end
+    TriggerClientEvent('qb-admin:client:getradiolist', src, Players, channel)
 end)
 
 RegisterNetEvent('qb-admin:server:check', function()
