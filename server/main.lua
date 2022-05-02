@@ -335,7 +335,3 @@ CreateThread(function()
         Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
     end
 end)
-
-RegisterCommand('routing', function(source, args, raw)
-    print(GetPlayerRoutingBucket(source))
-end)
