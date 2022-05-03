@@ -1,42 +1,35 @@
 -- Variables
 QBCore = exports['qb-core']:GetCoreObject()
-local SoundScriptName = 'interact-sound'
-local SoundPath = '/client/html/sounds'
 local Sounds = {}
 local IsFrozen = {}
-local permissions = { -- What should each permission be able to do
-    ['kill'] = 'god',
-    ['revive'] = 'god',
-    ['freeze'] = 'admin',
-    ['spectate'] = 'admin',
-    ['goto'] = 'admin',
-    ['bring'] = 'admin',
-    ['intovehicle'] = 'admin',
-    ['kick'] = 'admin',
-    ['ban'] = 'god',
-    ['setPermissions'] = 'god',
-    ['cloth'] = 'admin',
-    ['spawnVehicle'] = 'admin',
-    ['savecar'] = 'god',
-    ['playsound'] = 'admin',
-    ['usemenu'] = 'admin',
-}
-local PermissionOrder = { -- Permission hierarchy order from top to bottom
-    'god',
-    'admin',
-    'user'
-}
 
--- Functions
+--- Checks what permission the source has and what their ranking is in the permission hierachy.
+--- @param source number - The player's ID
+--- @return number - Ranking of the player in the permission hierachy
 local function PermOrder(source)
     for i = 1, #PermissionOrder do
-        if IsPlayerAceAllowed(source, PermissionOrder[i]) then
-            return i
+        if not OldPermissionSystem then
+            if IsPlayerAceAllowed(source, PermissionOrder[i]) then
+                return i
+            end
+        else
+            if QBCore.Functions.GetPermission(source, PermissionOrder[i]) then
+                return i
+            end
         end
     end
 end
 
--- Events
+--- Checks if the source is inside of the target's routingbucket
+--- if not set the source's routingbucket to the target's
+--- @param source number - The player's ID
+--- @param target number - The player's ID
+local function CheckRoutingbucket(source, target)
+    local sourceBucket = GetPlayerRoutingBucket(source)
+    local targetBucket = GetPlayerRoutingBucket(target)
+    if sourceBucket ~= targetBucket then SetPlayerRoutingBucket(source, tonumber(targetBucket)) end
+end
+
 RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
     local src = source
     local players = {}
@@ -108,6 +101,7 @@ RegisterNetEvent('qb-admin:server:goto', function(player)
     
     if not (QBCore.Functions.HasPermission(src, permissions['goto'])) then return end
 
+    CheckRoutingbucket(src, player.id)
     SetEntityCoords(admin, coords)
 end)
 
@@ -118,7 +112,8 @@ RegisterNetEvent('qb-admin:server:bring', function(player)
     local target = GetPlayerPed(player.id)
     
     if not (QBCore.Functions.HasPermission(src, permissions['bring'])) then return end
-    
+
+    CheckRoutingbucket(player.id, src)
     SetEntityCoords(target, coords)
 end)
 
@@ -136,6 +131,15 @@ RegisterNetEvent('qb-admin:server:intovehicle', function(player)
     
     SetPedIntoVehicle(admin, vehicle, seat)
     TriggerClientEvent('QBCore:Notify', src, Lang:t("success.entered_vehicle"), 'success', 5000)
+end)
+
+RegisterNetEvent('qb-admin:server:routingbucket', function(player, bucket)
+    local src = source
+
+    if not (QBCore.Functions.HasPermission(src, permissions['routingbucket'])) then return end
+    if GetPlayerRoutingBucket(player.id) == tonumber(bucket) then return end
+
+    SetPlayerRoutingBucket(player.id, tonumber(bucket))
 end)
 
 RegisterNetEvent('qb-admin:server:kick', function(player, reason)
@@ -241,10 +245,9 @@ end)
 
 RegisterNetEvent('qb-admin:server:getsounds', function()
     local src = source
-    print(Sounds)
+
     if not (QBCore.Functions.HasPermission(src, permissions['playsound'])) then return end
-    print(Sounds)
-    
+
     TriggerClientEvent('qb-admin:client:getsounds', src, Sounds)
 end)
 
@@ -279,6 +282,23 @@ RegisterNetEvent('qb-admin:server:playsound', function(target, soundname, soundv
     if not (QBCore.Functions.HasPermission(src, permissions['playsound'])) then return end
 
     TriggerClientEvent('qb-admin:client:playsound', target, soundname, soundvolume, soundradius)
+end)
+
+RegisterNetEvent('qb-admin:server:getradiolist', function(channel)
+    local src = source
+    local list = exports['pma-voice']:getPlayersInRadioChannel(tonumber(channel))
+    local Players = { id, name }
+
+    if not (QBCore.Functions.HasPermission(src, permissions['getradiolist'])) then return end
+
+    for targetSource, isTalking in pairs(list) do -- cheers Knight who shall not be named
+        local Player = QBCore.Functions.GetPlayer(targetSource)
+        Players[#Players + 1] = {
+            id = targetSource,
+            name = Player.PlayerData.charinfo.firstname .. ' ' .. Player.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(targetSource) .. ')'
+        }
+    end
+    TriggerClientEvent('qb-admin:client:getradiolist', src, Players, channel)
 end)
 
 RegisterNetEvent('qb-admin:server:check', function()

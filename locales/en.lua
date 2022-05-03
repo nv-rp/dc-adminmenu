@@ -76,6 +76,7 @@ local Translations = {
         ["confirm_play"] = "Confirm (Play On Player)",
         ["confirm_play_radius"] = "Confirm (Play Around Player)",
         ["dropped"] = "How are you able to do this?",
+        ["radio_list"] = "Player List From Radio",
     },
     menu = {
         ["admin_menu"] = "Admin Menu",
@@ -134,6 +135,10 @@ local Translations = {
         ["ped"] = "Change Ped Model",
         ["reset_ped"] = "Reset Ped Model",
         ["ammo"] = "Infinite Ammo",
+        ["item_list"] = "Item List",
+        ["item_self"] = "Self",
+        ["routingbucket"] = "Routingbucket",
+        ["mute_player"] = "Mute Player",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -172,7 +177,6 @@ local Translations = {
         ["player_administration"] = "Ban, Kick or give perms to a player",
         ["player_extra_desc"] = "Extra options like giving items etc.",
         ["give_item_menu_desc"] = "Give a specific item to",
-        ["item"] = "Which item to give",
         ["amount"] = "Amount to give",
         ["play_sound"] = "Play A Sound On",
         ["sound"] = "What is the sound file name",
@@ -183,6 +187,11 @@ local Translations = {
         ["reset_ped"] = "Go back to your normal ped",
         ["ammo"] = "Give yourself infinite ammo",
         ["player_info"] = "Extra Player Info",
+        ["item_list"] = "Get A Full List Of All Your Items In Your Shared",
+        ["item_self"] = "Fill In The Item Name Yourself",
+        ["routingbucket"] = "Teleport This Player To A Different Routingbucket",
+        ["mute_player"] = "Mute Player's Mumble",
+        ["radio_list"] = "Get A Full List Of Players Inside A Certain Radio Frequency",
     },
     time = {
         ["ban_length"] = "Ban Length",
@@ -293,6 +302,7 @@ local Translations = {
         ["bank"] = "Bank Balance",
         ["job"] = "Current Job",
         ["gang"] = "Current Gang",
+        ["radio"] = "Radio Frequency",
     }
 }
 

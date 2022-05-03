@@ -1,3 +1,5 @@
+local vehicleDevMode = false
+local showCoords = false
 
 local function round(input, decimalPlaces)
     return tonumber(string.format("%." .. (decimalPlaces or 0) .. "f", input))

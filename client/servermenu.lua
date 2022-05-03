@@ -274,3 +274,48 @@ ServerMenuButton3:On('Select', function(item)
         end
     end)
 end)
+
+local ServerMenuButton4 = ServerMenu:AddButton({
+    icon = '📻',
+    label = Lang:t("info.radio_list"),
+    value = '',
+    description = Lang:t("desc.radio_list"),
+    select = function(btn)
+        local dialog = exports['qb-input']:ShowInput({
+            header = Lang:t("info.radio_list"),
+            submitText = "Confirm",
+            inputs = {
+                {
+                    text = "30",
+                    name = "channel",
+                    type = "number",
+                    isRequired = true
+                }
+            }
+        })
+        if dialog then
+            TriggerServerEvent('qb-admin:server:getradiolist', dialog.channel)
+        end
+    end
+})
+RegisterNetEvent('qb-admin:client:getradiolist', function(data, channel)
+    local RadioMenu = {
+        {
+            header = Lang:t('info.radio_list').. ': ' ..channel,
+            isMenuHeader = true
+        }
+    }
+    for i = 1, #data do
+        RadioMenu[#RadioMenu + 1] = {
+            header = data[i].name,
+            txt = data[i].id,
+            params = {
+                event = "",
+                args = {
+                    name = ''
+                }
+            }
+        }
+    end
+    exports['qb-menu']:openMenu(RadioMenu)
+end)
