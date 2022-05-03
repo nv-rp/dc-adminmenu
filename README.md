@@ -32,6 +32,7 @@ As always more features planned. Pull requests are welcome as well.
 
 # Server Management
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/970849625621815316/unknown.png)
+![image](https://cdn.discordapp.com/attachments/967850345306914826/970851323656417370/unknown.png)
 
 # Vehicles
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969991973039669308/unknown.png)
