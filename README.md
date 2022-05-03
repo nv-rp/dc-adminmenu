@@ -40,7 +40,11 @@ As always more features planned. Pull requests are welcome as well.
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969992103356665886/unknown.png)
 
 # Dependencies
-Makes use of both [qb-menu](https://github.com/qbcore-framework/qb-menu) and [qb-input](https://github.com/qbcore-framework/qb-input).
+Makes usage of
+ * [qb-menu](https://github.com/qbcore-framework/qb-menu)
+ * [qb-input](https://github.com/qbcore-framework/qb-input)
+ * [interact-sound](https://github.com/qbcore-framework/interact-sound)
+ * [pma-voice](https://github.com/AvarianKnight/pma-voice)
 
 # License
 
