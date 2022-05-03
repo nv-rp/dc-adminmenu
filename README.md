@@ -28,7 +28,7 @@ As always more features planned. Pull requests are welcome as well.
     - Mute Player
 4. Player Information List
 
-![image](https://cdn.discordapp.com/attachments/967850345306914826/969990743747854366/unknown.png)
+![image](https://cdn.discordapp.com/attachments/967850345306914826/970852311259807744/unknown.png)
 
 # Server Management
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/970849625621815316/unknown.png)
