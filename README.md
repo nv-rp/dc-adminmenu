@@ -15,6 +15,7 @@ As always more features planned. Pull requests are welcome as well.
     - Go to
     - Bring
     - Sit in vehicle
+    - Routingbucket
 2. Administration
     - Kick
     - Ban
@@ -24,12 +25,13 @@ As always more features planned. Pull requests are welcome as well.
     - Give Clothing Menu
     - Give An Item
     - Play A Sound
+    - Mute Player
 4. Player Information List
 
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969990743747854366/unknown.png)
 
 # Server Management
-![image](https://cdn.discordapp.com/attachments/967850345306914826/969991765396434984/unknown.png)
+![image](https://cdn.discordapp.com/attachments/967850345306914826/970849625621815316/unknown.png)
 
 # Vehicles
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969991973039669308/unknown.png)
