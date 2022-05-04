@@ -2,6 +2,7 @@
 
 An improved version of qb-adminmenu. With better logic and more features.
 As always more features planned. Pull requests are welcome as well.
+You can always find support [here](https://discord.gg/SqRsSsSskg) in our Discord.
 ### Reading the [wiki](https://github.com/Disabled-Coding/dc-adminmenu/wiki) is advised.
 
 # Admin Options
