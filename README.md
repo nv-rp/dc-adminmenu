@@ -1,4 +1,4 @@
-## dc-adminmenu
+# dc-adminmenu
 
 An improved version of qb-adminmenu. With better logic and more features.
 As always more features planned. Pull requests are welcome as well.
@@ -46,6 +46,9 @@ Makes usage of
  * [qb-input](https://github.com/qbcore-framework/qb-input)
  * [interact-sound](https://github.com/qbcore-framework/interact-sound)
  * [pma-voice](https://github.com/AvarianKnight/pma-voice)
+
+## I get kicked while using the command /admin?
+Make sure you added yourself as an admin or god. When using the deployable QBCore setup the only thing left for you to do is change your ace to `qbcore.god` from whatever it puts there first. This could be `group.admin` or `group.god`. (AS IT STATES IN YOUR SERVER.CFG [HERE](https://github.com/qbcore-framework/txAdminRecipe/blob/642d295fc74e39e5edeef3d5bee01555b9d8d963/server.cfg#L102)). Using the old permission system? Join your server once and the core will print your license in the server console which you need to add to your database.
 
 # License
 
