@@ -164,7 +164,7 @@ local PermsMenuButton1 = PermsMenu:AddSlider({
     label = 'Group',
     value = 'user',
     values = {{
-        label = 'User',
+        label = 'Remove',
         value = 'user',
         description = 'Group'
     }, {
@@ -183,10 +183,10 @@ local PermsMenuButton1 = PermsMenu:AddSlider({
             selectedgroup[#selectedgroup+1] = {rank = "user", label = "User"}
         elseif vcal == 2 then
             selectedgroup = {}
-            selectedgroup[#selectedgroup+1] = {rank = "admin", label = "Admin"}
+            selectedgroup[#selectedgroup+1] = {rank = "AdminmenuAdmin", label = "Admin"}
         elseif vcal == 3 then
             selectedgroup = {}
-            selectedgroup[#selectedgroup+1] = {rank = "god", label = "God"}
+            selectedgroup[#selectedgroup+1] = {rank = "AdminmenuGod", label = "God"}
         end
     end
 })

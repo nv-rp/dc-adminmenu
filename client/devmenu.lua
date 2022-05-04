@@ -156,9 +156,10 @@ DevMenuButton6:On('change', function(item, newValue, oldValue)
     if dev then
         SetPlayerInvincible(PlayerId(), true)
         while dev do
-            TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 10)
-            TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 10)    
-            Wait(20000)
+            TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 5)
+            TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 5)
+            TriggerServerEvent('hud:server:RelieveStress', 10)
+            Wait(8000)
         end
         SetPlayerInvincible(PlayerId(), false)
     end
@@ -344,4 +345,9 @@ CreateThread(function()	-- While loop needed for delete lazer
 		end
 		Wait(sleep)
 	end
+end)
+
+RegisterNetEvent('qb-admin:client:ToggleCoords', function()
+    TriggerServerEvent('qb-admin:server:check')
+    ToggleShowCoordinates()
 end)
