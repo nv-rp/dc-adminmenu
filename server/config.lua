@@ -5,29 +5,29 @@ SoundPath = '/client/html/sounds' -- Where the sounds are located
 
 --- Who should be able to trigger each NetEvent on the server side?
 permissions = {
-    ['kill'] = 'god',
-    ['revive'] = 'god',
-    ['freeze'] = 'admin',
-    ['spectate'] = 'admin',
-    ['goto'] = 'admin',
-    ['bring'] = 'admin',
-    ['intovehicle'] = 'admin',
-    ['kick'] = 'admin',
-    ['ban'] = 'god',
-    ['setPermissions'] = 'god',
-    ['cloth'] = 'admin',
-    ['spawnVehicle'] = 'admin',
-    ['savecar'] = 'god',
-    ['playsound'] = 'admin',
-    ['usemenu'] = 'admin',
-    ['routingbucket'] = 'admin',
-    ['getradiolist'] = 'admin',
+    ['kill'] = 'adminmenu.god',
+    ['revive'] = 'adminmenu.god',
+    ['freeze'] = 'adminmenu.admin',
+    ['spectate'] = 'adminmenu.admin',
+    ['goto'] = 'adminmenu.admin',
+    ['bring'] = 'adminmenu.admin',
+    ['intovehicle'] = 'adminmenu.admin',
+    ['kick'] = 'adminmenu.admin',
+    ['ban'] = 'adminmenu.god',
+    ['setPermissions'] = 'adminmenu.god',
+    ['cloth'] = 'adminmenu.admin',
+    ['spawnVehicle'] = 'adminmenu.admin',
+    ['savecar'] = 'adminmenu.god',
+    ['playsound'] = 'adminmenu.admin',
+    ['usemenu'] = 'adminmenu.admin',
+    ['routingbucket'] = 'adminmenu.admin',
+    ['getradiolist'] = 'adminmenu.admin',
 }
 
 --- Permission hierarchy order from top to bottom. Important for the PermOrder function.
 PermissionOrder = {
-    'god',
-    'admin',
+    'adminmenu.god',
+    'adminmenu.admin',
     'user'
 }
 

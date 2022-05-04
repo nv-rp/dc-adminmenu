@@ -345,3 +345,8 @@ CreateThread(function()	-- While loop needed for delete lazer
 		Wait(sleep)
 	end
 end)
+
+RegisterNetEvent('qb-admin:client:ToggleCoords', function()
+    TriggerServerEvent('qb-admin:server:check')
+    ToggleShowCoordinates()
+end)
