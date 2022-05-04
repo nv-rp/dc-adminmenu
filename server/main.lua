@@ -369,7 +369,13 @@ end)
 CreateThread(function()
     local path = GetResourcePath(SoundScriptName)
     local directory = path:gsub('//', '/')..SoundPath
-    for filename in io.popen('dir "'..directory..'" /b'):lines() do
-        Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
+    if not Linux then
+        for filename in io.popen('dir "'..directory..'" /b'):lines() do
+            Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
+        end
+    else
+        for filename in io.popen('ls "'..directory..'" /b'):lines() do
+            Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
+        end
     end
 end)
