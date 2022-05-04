@@ -4,7 +4,7 @@ SoundScriptName = 'interact-sound' -- Name of the sound script that you are usin
 SoundPath = '/client/html/sounds' -- Where the sounds are located
 
 --- Who should be able to trigger each NetEvent on the server side?
-permissions = {
+events = {
     ['kill'] = 'adminmenu.god',
     ['revive'] = 'adminmenu.god',
     ['freeze'] = 'adminmenu.admin',

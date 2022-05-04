@@ -1,27 +1,27 @@
 QBCore.Commands.Add('blips', Lang:t("commands.blips_for_player"), {}, false, function(source)
     local src = source
     TriggerClientEvent('qb-admin:client:toggleBlips', src)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('names', Lang:t("commands.player_name_overhead"), {}, false, function(source)
     local src = source
     TriggerClientEvent('qb-admin:client:toggleNames', src)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('coords', Lang:t("commands.coords_dev_command"), {}, false, function(source)
     local src = source
     TriggerClientEvent('qb-admin:client:ToggleCoords', src)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('noclip', Lang:t("commands.toogle_noclip"), {}, false, function(source)
     local src = source
     TriggerClientEvent('qb-admin:client:ToggleNoClip', src)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('admincar', Lang:t("commands.save_vehicle_garage"), {}, false, function(source, args)
     local ply = QBCore.Functions.GetPlayer(source)
     TriggerClientEvent('qb-admin:client:SaveCar', source)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('announce', Lang:t("commands.make_announcement"), {}, false, function(source, args)
     local msg = table.concat(args, ' ')
@@ -31,11 +31,11 @@ QBCore.Commands.Add('announce', Lang:t("commands.make_announcement"), {}, false,
         multiline = true,
         args = {"Announcement", msg}
     })
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('admin', Lang:t("commands.open_admin"), {}, false, function(source, args)
     TriggerClientEvent('qb-admin:client:openMenu', source)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('report', Lang:t("info.admin_report"), {{name='message', help='Message'}}, true, function(source, args)
     local src = source
@@ -48,19 +48,19 @@ end)
 QBCore.Commands.Add('staffchat', Lang:t("commands.staffchat_message"), {{name='message', help='Message'}}, true, function(source, args)
     local msg = table.concat(args, ' ')
     TriggerEvent('qb-admin:server:Staffchat:addMessage', GetPlayerName(source), msg)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('s', Lang:t("commands.staffchat_message"), {{name='message', help='Message'}}, true, function(source, args)
     local msg = table.concat(args, ' ')
     TriggerEvent('qb-admin:server:Staffchat:addMessage', GetPlayerName(source), msg)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('givenuifocus', Lang:t("commands.nui_focus"), {{name='id', help='Player id'}, {name='focus', help='Set focus on/off'}, {name='mouse', help='Set mouse on/off'}}, true, function(source, args)
     local playerid = tonumber(args[1])
     local focus = args[2]
     local mouse = args[3]
     TriggerClientEvent('qb-admin:client:GiveNuiFocus', playerid, focus, mouse)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('warn', Lang:t("commands.warn_a_player"), {{name='ID', help='Player'}, {name='Reason', help='Mention a reason'}}, true, function(source, args)
     local targetPlayer = QBCore.Functions.GetPlayer(tonumber(args[1]))
@@ -89,7 +89,7 @@ QBCore.Commands.Add('warn', Lang:t("commands.warn_a_player"), {{name='ID', help=
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t("error.not_online"), 'error')
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('checkwarns', Lang:t("commands.check_player_warning"), {{name='id', help='Player'}, {name='Warning', help='Number of warning, (1, 2 or 3 etc..)'}}, false, function(source, args)
     if args[2] == nil then
@@ -113,7 +113,7 @@ QBCore.Commands.Add('checkwarns', Lang:t("commands.check_player_warning"), {{nam
             })
         end
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('delwarn', Lang:t("commands.delete_player_warning"), {{name='id', help='Player'}, {name='Warning', help='Number of warning, (1, 2 or 3 etc..)'}}, true, function(source, args)
     local targetPlayer = QBCore.Functions.GetPlayer(tonumber(args[1]))
@@ -128,7 +128,7 @@ QBCore.Commands.Add('delwarn', Lang:t("commands.delete_player_warning"), {{name=
         })
         MySQL.Async.execute('DELETE FROM player_warns WHERE warnId = ?', { warnings[selectedWarning].warnId })
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('reportr', Lang:t("commands.reply_to_report"), {{name='id', help='Player'}, {name = 'message', help = 'Message to respond with'}}, false, function(source, args, rawCommand)
     local src = source
@@ -151,7 +151,7 @@ QBCore.Commands.Add('reportr', Lang:t("commands.reply_to_report"), {{name='id', 
     })
     TriggerClientEvent('QBCore:Notify', src, 'Reply Sent')
     TriggerEvent('qb-log:server:CreateLog', 'report', 'Report Reply', 'red', '**'..GetPlayerName(src)..'** replied on: **'..OtherPlayer.PlayerData.name.. ' **(ID: '..OtherPlayer.PlayerData.source..') **Message:** ' ..msg, false)
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('setmodel', Lang:t("commands.change_ped_model"), {{name='model', help='Name of the model'}, {name='id', help='Id of the Player (empty for yourself)'}}, false, function(source, args)
     local model = args[1]
@@ -170,7 +170,7 @@ QBCore.Commands.Add('setmodel', Lang:t("commands.change_ped_model"), {{name='mod
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t("error.failed_set_model"), 'error')
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('setspeed', Lang:t("commands.set_player_foot_speed"), {}, false, function(source, args)
     local speed = args[1]
@@ -179,7 +179,7 @@ QBCore.Commands.Add('setspeed', Lang:t("commands.set_player_foot_speed"), {}, fa
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t("error.failed_set_speed"), 'error')
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('reporttoggle', Lang:t("commands.report_toggle"), {}, false, function(source, args)
     local src = source
@@ -189,7 +189,7 @@ QBCore.Commands.Add('reporttoggle', Lang:t("commands.report_toggle"), {}, false,
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t("error.no_receive_report"), 'error')
     end
-end, 'adminmenu.admin')
+end, 'admin')
 
 QBCore.Commands.Add('kickall', Lang:t("commands.kick_all"), {}, false, function(source, args)
     local src = source
@@ -215,7 +215,7 @@ QBCore.Commands.Add('kickall', Lang:t("commands.kick_all"), {}, false, function(
             end
         end
     end
-end, 'adminmenu.god')
+end, 'god')
 
 QBCore.Commands.Add('setammo', Lang:t("commands.ammo_amount_set"), {{name='amount', help='Amount of bullets, for example: 20'}, {name='weapon', help='Name of the weapen, for example: WEAPON_VINTAGEPISTOL'}}, false, function(source, args)
     local src = source
@@ -227,4 +227,4 @@ QBCore.Commands.Add('setammo', Lang:t("commands.ammo_amount_set"), {{name='amoun
     else
         TriggerClientEvent('qb-weapons:client:SetWeaponAmmoManual', src, 'current', amount)
     end
-end, 'adminmenu.admin')
+end, 'admin')
