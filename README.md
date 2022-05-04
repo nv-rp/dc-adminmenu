@@ -2,11 +2,7 @@
 
 An improved version of qb-adminmenu. With better logic and more features.
 As always more features planned. Pull requests are welcome as well.
-
-# Installation
-Add `exec resources\[qb]\dc-adminmenu\permissions.cfg` to your `server.cfg` file. Or `exec <path name here>\permissions.cfg` if you have a custom path.
-Please read the permissions.cfg carefully and afterwards add your own permissions e.g. `add_principal identifier.fivem:1070255 AdminmenuGod`.
-If you do however have a different naming scheme or custom path names do change them accordingly and update all the functions accordingly. 
+Reading the [wiki](https://github.com/Disabled-Coding/dc-adminmenu/wiki) is advised.
 
 # Admin Options
 ![image](https://cdn.discordapp.com/attachments/967850345306914826/969989912042565642/unknown.png)
