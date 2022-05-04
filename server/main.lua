@@ -18,6 +18,7 @@ local function PermOrder(source)
             end
         end
     end
+    return #PermissionOrder + 1
 end
 
 --- Checks if the source is inside of the target's routingbucket
@@ -28,6 +29,29 @@ local function CheckRoutingbucket(source, target)
     local sourceBucket = GetPlayerRoutingBucket(source)
     local targetBucket = GetPlayerRoutingBucket(target)
     if sourceBucket ~= targetBucket then SetPlayerRoutingBucket(source, tonumber(targetBucket)) end
+end
+
+--- Credits https://github.com/prefech/JD_Perms
+local function UpdatePermission(source, permission)
+    local license = QBCore.Functions.GetIdentifier(source, 'license')
+    if permission == 'user' then
+        OldFile = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'r')
+        OldText = OldFile:read('*a')
+        OldFile:close()
+        NewText = OldText:gsub('\nadd_principal identifier.'..license..' [^\n]*', '')
+        NewFile = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'w+')
+        NewFile:write(NewText)
+        NewFile:close()
+        ExecuteCommand("remove_principal identifier."..license.." AdminmenuAdmin")
+        ExecuteCommand("remove_principal identifier."..license.." AdminmenuGod")
+    else
+        file = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'a')
+        io.output(file)
+        local data = "\nadd_principal identifier."..license.." "..permission.. "  # ".. GetPlayerName(source)
+        io.write(data)
+        io.close(file)
+        ExecuteCommand("add_principal identifier."..license.." "..permission.."")
+    end
 end
 
 RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
@@ -188,11 +212,10 @@ RegisterNetEvent('qb-admin:server:setPermissions', function(targetId, group)
     local src = source
 
     if not (QBCore.Functions.HasPermission(src, permissions['setPermissions'])) then return end
-    if PermOrder(src) > PermOrder(targetId) then return end
 
-    QBCore.Functions.AddPermission(targetId, group[1].rank)
     TriggerClientEvent('QBCore:Notify', targetId, Lang:t("info.rank_level")..group[1].label)
     TriggerClientEvent('QBCore:Notify', src, Lang:t("success.changed_perm")..' : '..group[1].label)
+    UpdatePermission(targetId, group[1].rank)
 end)
 
 RegisterNetEvent('qb-admin:server:cloth', function(player)
@@ -251,22 +274,21 @@ RegisterNetEvent('qb-admin:server:getsounds', function()
     TriggerClientEvent('qb-admin:client:getsounds', src, Sounds)
 end)
 
-RegisterNetEvent('qb-admin:server:SendReport', function(name, targetSrc, msg)
-    local src = source
-    if QBCore.Functions.HasPermission(src, 'admin') then
-        if QBCore.Functions.IsOptin(src) then
-            TriggerClientEvent('chat:addMessage', src, {
+AddEventHandler('qb-admin:server:SendReport', function(name, targetSrc, msg)
+    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+        if QBCore.Functions.HasPermission(v, 'adminmenu.admin') then
+            TriggerClientEvent('chat:addMessage', v, {
                 color = {255, 0, 0},
                 multiline = true,
                 args = {Lang:t("info.admin_report")..name..' ('..targetSrc..')', msg}
             })
         end
-    end
+	end
 end)
 
 AddEventHandler('qb-admin:server:Staffchat:addMessage', function(name, msg)
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
-        if QBCore.Functions.IsOptin(v) then
+        if QBCore.Functions.HasPermission(v, 'adminmenu.admin') then
             TriggerClientEvent('chat:addMessage', v, {
                 color = {255, 0, 0},
                 multiline = true,

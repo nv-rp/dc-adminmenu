@@ -28,7 +28,6 @@ permissions = {
 PermissionOrder = {
     'adminmenu.god',
     'adminmenu.admin',
-    'user'
 }
 
 --- Changes the behaviour of the PermOrder function. If set to true it means you still use the database permission system.
