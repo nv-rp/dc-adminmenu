@@ -718,18 +718,24 @@ function OpenPlayerMenus()
         label = Lang:t("label.cash").. ': ' ..PlayerDetails.cash.. '$',
         description = Lang:t("desc.player_info")
     })
-    local PlayersButton11 = PlayerDetailMenu:AddButton({
+    local PlayersButton13 = PlayerDetailMenu:AddButton({
         label = Lang:t("label.bank").. ': ' ..PlayerDetails.bank.. '$',
         description = Lang:t("desc.player_info")
     })
-    local PlayersButton11 = PlayerDetailMenu:AddButton({
+    local PlayersButton14 = PlayerDetailMenu:AddButton({
+        label = Lang:t("label.job").. ': ' ..PlayerDetails.job,
+        description = Lang:t("desc.player_info")
+    })
+    local PlayersButton15 = PlayerDetailMenu:AddButton({
         label = Lang:t("label.gang").. ': ' ..PlayerDetails.gang,
         description = Lang:t("desc.player_info")
     })
-    local PlayersButton12 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
-        description = Lang:t("desc.player_info")
-    })
+    if Player(PlayerDetails.id).state['radioChannel'] then
+        local PlayersButton16 = PlayerDetailMenu:AddButton({
+            label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
+            description = Lang:t("desc.player_info")
+        })
+    end
 end
 
 RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)
