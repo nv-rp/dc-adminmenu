@@ -288,7 +288,7 @@ local ServerMenuButton4 = ServerMenu:AddButton({
                 {
                     text = "30",
                     name = "channel",
-                    type = "number",
+                    type = "text",
                     isRequired = true
                 }
             }
