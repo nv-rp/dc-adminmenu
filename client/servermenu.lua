@@ -319,3 +319,28 @@ RegisterNetEvent('qb-admin:client:getradiolist', function(data, channel)
     end
     exports['qb-menu']:openMenu(RadioMenu)
 end)
+
+local ServerMenuButton5 = ServerMenu:AddButton({
+    icon = '📦',
+    label = Lang:t("menu.pull_stash"),
+    value = '',
+    description = Lang:t("desc.pull_stash"),
+    select = function(btn)
+        local dialog = exports['qb-input']:ShowInput({
+            header = Lang:t("menu.pull_stash"),
+            submitText = "Confirm",
+            inputs = {
+                {
+                    text = "apartment8467",
+                    name = "name",
+                    type = "text",
+                    isRequired = true
+                }
+            }
+        })
+        if dialog then
+            TriggerServerEvent("inventory:server:OpenInventory", "stash", tostring(dialog.name))
+            TriggerEvent("inventory:client:SetCurrentStash", tostring(dialog.name))
+        end
+    end
+})
