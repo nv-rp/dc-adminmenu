@@ -34,7 +34,7 @@ end
 --- Credits https://github.com/prefech/JD_Perms
 local function UpdatePermission(source, permission)
     local license = QBCore.Functions.GetIdentifier(source, 'license')
-    if permission[1].label == 'User' then
+    if permission == 'user' then
         OldFile = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'r')
         OldText = OldFile:read('*a')
         OldFile:close()
@@ -51,6 +51,31 @@ local function UpdatePermission(source, permission)
         io.write(data)
         io.close(file)
         ExecuteCommand("add_principal identifier."..license.." "..permission)
+    end
+end
+
+local function types(args)
+    local argType = type(args[1])
+    for i = 2, #args do
+        local arg = args[i]
+        if argType == arg then
+            return true, argType
+        end
+    end
+    return false, argType
+end
+
+function type_check(...)
+    local vars = {...}
+    for i = 1, #vars do
+        local var = vars[i]
+        local matchesType, varType = types(var)
+        if not matchesType then
+            table.remove(var, 1)
+            print(("Invalid type sent to argument #%s, expected %s, got %s"):format(i, table.concat(var, "|"), varType))
+            return false
+        end
+        return true
     end
 end
 
@@ -344,6 +369,7 @@ QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayers', function(sou
         local ped = QBCore.Functions.GetPlayer(v)
         players[#players+1] = {
             id = v,
+            cid = ped.PlayerData.citizenid,
             name = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(v) .. ')',
             food = ped.PlayerData.metadata['hunger'],
             water = ped.PlayerData.metadata['thirst'],
@@ -364,6 +390,29 @@ QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayers', function(sou
         end)
         ------
     cb(players)
+end)
+
+QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayer', function(source, cb, TargetID)
+    if not QBCore.Functions.HasPermission(source, events['usemenu']) then return end
+
+    local ped = QBCore.Functions.GetPlayer(TargetID)
+    player = {
+        id = TargetID,
+        cid = ped.PlayerData.citizenid,
+        name = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(TargetID) .. ')',
+        food = ped.PlayerData.metadata['hunger'],
+        water = ped.PlayerData.metadata['thirst'],
+        stress = ped.PlayerData.metadata['stress'],
+        armor = ped.PlayerData.metadata['armor'],
+        phone = ped.PlayerData.charinfo.phone,
+        craftingrep = ped.PlayerData.metadata['craftingrep'],
+        dealerrep = ped.PlayerData.metadata['dealerrep'],
+        cash = ped.PlayerData.money['cash'],
+        bank = ped.PlayerData.money['bank'],
+        job = ped.PlayerData.job.label .. ' | ' .. ped.PlayerData.job.grade.level,
+        gang = ped.PlayerData.gang.label,
+    }
+    cb(player)
 end)
 
 CreateThread(function()

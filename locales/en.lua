@@ -192,6 +192,7 @@ local Translations = {
         ["routingbucket"] = "Teleport This Player To A Different Routingbucket",
         ["mute_player"] = "Mute Player's Mumble",
         ["radio_list"] = "Get A Full List Of Players Inside A Certain Radio Frequency",
+        ["update_info"] = "Only Insert Logical Things",
     },
     time = {
         ["ban_length"] = "Ban Length",

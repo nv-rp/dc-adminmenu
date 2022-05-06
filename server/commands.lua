@@ -228,3 +228,8 @@ QBCore.Commands.Add('setammo', Lang:t("commands.ammo_amount_set"), {{name='amoun
         TriggerClientEvent('qb-weapons:client:SetWeaponAmmoManual', src, 'current', amount)
     end
 end, 'admin')
+
+--- Uncomment this command if you want to add yourself as God. If this doesn't work honestly just use the original qb-adminmenu. I can't say more
+-- RegisterCommand('giveperms', function(source)
+--     UpdatePermission(source, 'AdminmenuGod')
+-- end)
