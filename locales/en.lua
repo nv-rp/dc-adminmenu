@@ -140,6 +140,7 @@ local Translations = {
         ["routingbucket"] = "Routingbucket",
         ["mute_player"] = "Mute Player",
         ["pull_stash"] = "Pull Stash",
+        ["tune_car"] = "Tune Car",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -195,6 +196,7 @@ local Translations = {
         ["radio_list"] = "Get A Full List Of Players Inside A Certain Radio Frequency",
         ["update_info"] = "Only Insert Logical Things",
         ["pull_stash"] = "Pull A Stash By Entering The Name",
+        ["tune_car"] = "Upgrade Your Car",
     },
     time = {
         ["ban_length"] = "Ban Length",
