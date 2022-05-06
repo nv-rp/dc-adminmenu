@@ -2,7 +2,7 @@
 --- is triggered when using the play sound option in the menu.
 SoundScriptName = 'interact-sound' -- Name of the sound script that you are using
 SoundPath = '/client/html/sounds' -- Where the sounds are located
-Linux = false -- Wheter or not if you use linux. Very important!
+Linux = false -- Wether or not if you use linux. Very important!
 
 --- Who should be able to trigger each NetEvent on the server side?
 events = {
@@ -23,6 +23,7 @@ events = {
     ['usemenu'] = 'adminmenu.admin',
     ['routingbucket'] = 'adminmenu.admin',
     ['getradiolist'] = 'adminmenu.admin',
+    ['playerinformation'] = 'adminmenu.god',
 }
 
 --- Permission hierarchy order from top to bottom. Important for the PermOrder function.

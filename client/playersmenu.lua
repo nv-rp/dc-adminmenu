@@ -682,54 +682,104 @@ function OpenPlayerMenus()
             })
         end    
     end)
-    local PlayersButton4 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.name").. ': ' ..PlayerDetails.name,
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton5 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.food").. ': ' ..PlayerDetails.food.. '%',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton6 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.water").. ': ' ..PlayerDetails.water.. '%',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton7 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.stress").. ': ' ..PlayerDetails.stress.. '%',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton8 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.armor").. ': ' ..PlayerDetails.armor.. '%',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton9 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.phone").. ': ' ..PlayerDetails.phone,
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton10 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.craftingrep").. ': ' ..PlayerDetails.craftingrep,
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton11 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.dealerrep").. ': ' ..PlayerDetails.dealerrep,
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton12 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.cash").. ': ' ..PlayerDetails.cash.. '$',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton11 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.bank").. ': ' ..PlayerDetails.bank.. '$',
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton11 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.gang").. ': ' ..PlayerDetails.gang,
-        description = Lang:t("desc.player_info")
-    })
-    local PlayersButton12 = PlayerDetailMenu:AddButton({
-        label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
-        description = Lang:t("desc.player_info")
-    })
+    local elements = {
+        [1] = {
+            label = Lang:t("label.name").. ': ' ..PlayerDetails.name,
+            description = Lang:t("desc.player_info"),
+            value = 'name'
+        },
+        [2] = {
+            label = Lang:t("label.food").. ': ' ..PlayerDetails.food.. '%',
+            description = Lang:t("desc.player_info"),
+            value = 'food'
+        },
+        [3] = {
+            label = Lang:t("label.water").. ': ' ..PlayerDetails.water.. '%',
+            description = Lang:t("desc.player_info"),
+            value = 'water'
+        },
+        [4] = {
+            label = Lang:t("label.stress").. ': ' ..PlayerDetails.stress.. '%',
+            description = Lang:t("desc.player_info"),
+            value = 'stress'
+        },
+        [5] = {
+            label = Lang:t("label.armor").. ': ' ..PlayerDetails.armor.. '%',
+            description = Lang:t("desc.player_info"),
+            value = 'armor'
+        },
+        [6] = {
+            label = Lang:t("label.phone").. ': ' ..PlayerDetails.phone,
+            description = Lang:t("desc.player_info"),
+            value = 'phone'
+        },
+        [7] = {
+            label = Lang:t("label.craftingrep").. ': ' ..PlayerDetails.craftingrep,
+            description = Lang:t("desc.player_info"),
+            value = 'craftingrep'
+        },
+        [8] = {
+            label = Lang:t("label.dealerrep").. ': ' ..PlayerDetails.dealerrep,
+            description = Lang:t("desc.player_info"),
+            value = 'dealerrep'
+        },
+        [9] = {
+            label = Lang:t("label.cash").. ': ' ..PlayerDetails.cash.. '$',
+            description = Lang:t("desc.player_info"),
+            value = 'cash'
+        },
+        [10] = {
+            label = Lang:t("label.bank").. ': ' ..PlayerDetails.bank.. '$',
+            description = Lang:t("desc.player_info"),
+            value = 'bank'
+        },
+        [11] = {
+            label = Lang:t("label.job").. ': ' ..PlayerDetails.job,
+            description = Lang:t("desc.player_info"),
+            value = 'job'
+        },
+        [12] = {
+            label = Lang:t("label.gang").. ': ' ..PlayerDetails.gang,
+            description = Lang:t("desc.player_info"),
+            value = 'gang'
+        },
+        [13] = {
+            label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
+            description = Lang:t("desc.player_info"),
+            value = 'radio'
+        },
+    }
+    for k, v in ipairs(elements) do
+        local PlayersButton4 = PlayerDetailMenu:AddButton({
+            label = ' ' .. v.label,
+            value = v.value,
+            description = v.description,
+            select = function(btn)
+                local values = btn.Value
+                local dialog = exports['qb-input']:ShowInput({
+                    header = Lang:t("desc.update_info"),
+                    submitText = "Confirm",
+                    inputs = {
+                        {
+                            text = "Logical",
+                            name = "data",
+                            type = "text",
+                            isRequired = true
+                        }
+                    }
+                })
+                if dialog then
+                    TriggerServerEvent('qb-admin:server:'..values, PlayerDetails, dialog.data)
+                end
+                Wait(50)
+                QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getplayer', function(player)
+                    PlayerDetails = player
+                    PlayerDetailMenu:Close()
+                    OpenPlayerMenus()
+                end, PlayerDetails.id)
+            end
+        })
+    end
 end
 
 RegisterNetEvent('qb-admin:client:openSoundMenu', function(data)

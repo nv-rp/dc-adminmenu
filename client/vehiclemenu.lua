@@ -71,3 +71,35 @@ local VehicleMenuButton4 = VehicleMenu:AddButton({
 VehicleMenuButton4:On('Select', function(item)
     TriggerServerEvent('QBCore:CallCommand', "dv", {})
 end)
+
+local VehicleMenuButton5 = VehicleMenu:AddButton({
+    icon = '🛠️',
+    label = Lang:t("menu.tune_car"),
+    value = '',
+    description = Lang:t("desc.tune_car")
+})
+VehicleMenuButton5:On('Select', function(item)
+    local ped = PlayerPedId()
+    override = {
+        coords = GetEntityCoords(ped),
+        heading = GetEntityHeading(ped),
+        categories = {
+            mods = true,
+            repair = true,
+            armor = true,
+            respray = true,
+            liveries = true,
+            wheels = true,
+            tint = true,
+            plate = true,
+            extras = true,
+            neons = true,
+            xenons = true,
+            horn = true,
+            turbo = true,
+            cosmetics = true,
+        },
+    }
+    TriggerEvent('qb-customs:client:EnterCustoms', override)
+    MenuV:CloseAll()
+end)
