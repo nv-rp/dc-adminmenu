@@ -32,7 +32,7 @@ local function CheckRoutingbucket(source, target)
 end
 
 --- Credits https://github.com/prefech/JD_Perms
-local function UpdatePermission(source, permission)
+function UpdatePermission(source, permission)
     local license = QBCore.Functions.GetIdentifier(source, 'license')
     if permission == 'user' then
         OldFile = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'r')
