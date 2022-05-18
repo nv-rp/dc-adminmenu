@@ -183,7 +183,7 @@ local DevMenuButton8 = DevMenu:AddCheckbox({
     description = Lang:t("desc.noclip_desc")
 })
 DevMenuButton8:On('change', function(item, newValue, oldValue)
-    ToggleNoClipMode()
+    toggleNoClipMode()
 end)
 
 -- Delete Lazer

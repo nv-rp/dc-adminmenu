@@ -4,7 +4,7 @@ local SelfMenuButton1 = SelfMenu:AddCheckbox({
     description = Lang:t("desc.noclip_desc")
 })
 SelfMenuButton1:On('change', function(item, newValue, oldValue)
-    ToggleNoClipMode()
+    toggleNoClipMode()
 end)
 
 local SelfMenuButton2 = SelfMenu:AddButton({
