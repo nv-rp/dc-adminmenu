@@ -78,7 +78,6 @@ RegisterNetEvent('qb-admin:client:openMenu', function()
     TriggerServerEvent('qb-admin:server:check')
 end)
 
-
 RegisterNetEvent('qb-admin:client:playsound', function(name, volume, radius)
     TriggerServerEvent('InteractSound_SV:PlayWithinDistance', radius, name, volume)
 end)
