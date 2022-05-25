@@ -79,6 +79,12 @@ function type_check(...)
     end
 end
 
+--- QBCore.Trim function. Inserted locally to prevent complaining from people not upgrading cores.
+function Trim(value)
+	if not value then return nil end
+    return (string.gsub(value, '^%s*(.-)%s*$', '%1'))
+end
+
 RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
     local src = source
     local players = {}
@@ -275,10 +281,10 @@ RegisterNetEvent('qb-admin:server:SaveCar', function(mods, vehicle, hash, plate)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = MySQL.Sync.fetchAll('SELECT plate FROM player_vehicles WHERE plate = ?', { plate })
-    
+
     if result[1] ~= nil then TriggerClientEvent('QBCore:Notify', src, Lang:t("error.failed_vehicle_owner"), 'error', 3000) return end
     if not (QBCore.Functions.HasPermission(src, events['savecar'])) then return end
-    
+
     MySQL.Async.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state) VALUES (?, ?, ?, ?, ?, ?, ?)', {
         Player.PlayerData.license,
         Player.PlayerData.citizenid,
@@ -289,6 +295,23 @@ RegisterNetEvent('qb-admin:server:SaveCar', function(mods, vehicle, hash, plate)
         0
     })
     TriggerClientEvent('QBCore:Notify', src, Lang:t("success.success_vehicle_owner"), 'success', 5000)
+end)
+
+RegisterNetEvent('qb-admin:server:vehicleplate', function(Plate)
+    local src = source
+    local Vehicle = GetVehiclePedIsIn(GetPlayerPed(src), false)
+    local Plate = Trim(Plate):upper()
+    local OldPlate = Trim(GetVehicleNumberPlateText(Vehicle))
+    local VehicleHash = GetEntityModel(Vehicle)
+
+    if not (QBCore.Functions.HasPermission(src, events['platecar'])) then return end
+    if Vehicle == 0 then return end
+
+    SetVehicleNumberPlateText(Vehicle, Plate)
+    TriggerClientEvent('vehiclekeys:client:SetOwner', src, Plate)
+    local result = MySQL.single.await('SELECT * FROM player_vehicles WHERE plate = ? AND hash = ?', {OldPlate, VehicleHash})
+    if not result then return end
+    MySQL.update('UPDATE player_vehicles SET plate = ? WHERE plate = ? AND hash = ? AND citizenid = ?', {Plate, OldPlate, VehicleHash, result.citizenid})
 end)
 
 RegisterNetEvent('qb-admin:server:getsounds', function()

@@ -744,7 +744,7 @@ function OpenPlayerMenus()
             value = 'gang'
         },
         [13] = {
-            label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'],
+            label = Lang:t("label.radio").. ': ' ..Player(PlayerDetails.id).state['radioChannel'] or 0,
             description = Lang:t("desc.player_info"),
             value = 'radio'
         },

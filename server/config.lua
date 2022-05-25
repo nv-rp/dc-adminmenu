@@ -19,6 +19,7 @@ events = {
     ['cloth'] = 'admin',
     ['spawnVehicle'] = 'admin',
     ['savecar'] = 'god',
+    ['platecar'] = 'admin',
     ['playsound'] = 'admin',
     ['usemenu'] = 'admin',
     ['routingbucket'] = 'admin',

@@ -141,6 +141,7 @@ local Translations = {
         ["mute_player"] = "Mute Player",
         ["pull_stash"] = "Pull Stash",
         ["tune_car"] = "Tune Car",
+        ["plate_car"] = "Change Plate",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -197,6 +198,7 @@ local Translations = {
         ["update_info"] = "Only Insert Logical Things",
         ["pull_stash"] = "Pull A Stash By Entering The Name",
         ["tune_car"] = "Upgrade Your Car",
+        ["plate_car"] = "Change The Car's Numberplate",
     },
     time = {
         ["ban_length"] = "Ban Length",
