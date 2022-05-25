@@ -6,7 +6,7 @@ local function OpenCarModelsMenu(category)
             label = v["name"],
             value = k,
             description = 'Spawn ' .. v["name"],
-            select = function(btn)
+            select = function()
                 TriggerServerEvent('qb-admin:server:spawnVehicle', k)
             end
         })
@@ -20,7 +20,7 @@ local VehicleMenuButton1 = VehicleMenu:AddButton({
     description = Lang:t("desc.spawn_vehicle_desc")
 })
 local vehicles = {}
-VehicleMenuButton1:On('Select', function(item)
+VehicleMenuButton1:On('Select', function()
     VehCategorieMenu:ClearItems()
     for k, v in pairs(QBCore.Shared.Vehicles) do
         local category = v["category"]
@@ -48,7 +48,7 @@ local VehicleMenuButton2 = VehicleMenu:AddButton({
     value = 'fix',
     description = Lang:t("desc.fix_vehicle_desc")
 })
-VehicleMenuButton2:On('Select', function(item)
+VehicleMenuButton2:On('Select', function()
     TriggerServerEvent('QBCore:CallCommand', "fix", {})
 end)
 
@@ -58,7 +58,7 @@ local VehicleMenuButton3 = VehicleMenu:AddButton({
     value = 'buy',
     description = Lang:t("desc.buy_desc")
 })
-VehicleMenuButton3:On('Select', function(item)
+VehicleMenuButton3:On('Select', function()
     TriggerServerEvent('QBCore:CallCommand', "admincar", {})
 end)
 
@@ -68,7 +68,7 @@ local VehicleMenuButton4 = VehicleMenu:AddButton({
     value = 'remove',
     description = Lang:t("desc.remove_vehicle_desc")
 })
-VehicleMenuButton4:On('Select', function(item)
+VehicleMenuButton4:On('Select', function()
     TriggerServerEvent('QBCore:CallCommand', "dv", {})
 end)
 
@@ -78,9 +78,9 @@ local VehicleMenuButton5 = VehicleMenu:AddButton({
     value = '',
     description = Lang:t("desc.tune_car")
 })
-VehicleMenuButton5:On('Select', function(item)
+VehicleMenuButton5:On('Select', function()
     local ped = PlayerPedId()
-    override = {
+    local override = {
         coords = GetEntityCoords(ped),
         heading = GetEntityHeading(ped),
         categories = {
@@ -110,7 +110,7 @@ local VehicleMenuButton6 = VehicleMenu:AddButton({
     value = '',
     description = Lang:t("desc.plate_car")
 })
-VehicleMenuButton6:On('Select', function(item)
+VehicleMenuButton6:On('Select', function()
     local dialog = exports['qb-input']:ShowInput({
         header = Lang:t("desc.plate_car"),
         submitText = "Confirm",

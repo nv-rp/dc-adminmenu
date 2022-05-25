@@ -3,7 +3,7 @@ local SelfMenuButton1 = SelfMenu:AddCheckbox({
     label = Lang:t("menu.noclip"),
     description = Lang:t("desc.noclip_desc")
 })
-SelfMenuButton1:On('change', function(item, newValue, oldValue)
+SelfMenuButton1:On('change', function()
     toggleNoClipMode()
 end)
 
@@ -12,7 +12,7 @@ local SelfMenuButton2 = SelfMenu:AddButton({
     label = Lang:t("menu.revive"),
     description = Lang:t("desc.revive_desc")
 })
-SelfMenuButton2:On('select', function(item)
+SelfMenuButton2:On('select', function()
     TriggerEvent('hospital:client:Revive')
 end)
 
@@ -22,7 +22,7 @@ local SelfMenuButton3 = SelfMenu:AddCheckbox({
     description = Lang:t("desc.invisible_desc")
 })
 local invisible = false
-SelfMenuButton3:On('change', function(item, newValue, oldValue)
+SelfMenuButton3:On('change', function()
     invisible = not invisible
     if invisible then
         while invisible do
@@ -39,7 +39,7 @@ local SelfMenuButton4 = SelfMenu:AddCheckbox({
     description = Lang:t("desc.god_desc")
 })
 local godmode = false
-SelfMenuButton4:On('change', function(item, newValue, oldValue)
+SelfMenuButton4:On('change', function()
     godmode = not godmode
     if godmode then SetPlayerInvincible(PlayerId(), true)
     else SetPlayerInvincible(PlayerId(), false) end
@@ -102,7 +102,7 @@ local SelfMenuButton8 = SelfMenu:AddSlider({
         value = 'reset',
         description = Lang:t("desc.reset_ped")
     }},
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         if newValue == "ped" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("desc.ped"),
@@ -181,7 +181,7 @@ local SelfMenuButton10 = SelfMenu:AddSlider({
         value = 'heavy',
         description = Lang:t("desc.give_weapons")
     }},
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         TriggerServerEvent('qb-admin:server:giveallweapons', newValue)
     end
 })

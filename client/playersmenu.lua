@@ -6,13 +6,14 @@ local itemamount = 0
 local banreason = 'Unknown'
 local banlength = nil
 local kickreason = 'Unknown'
+local selectedgroup = nil
 
 local BanMenuButton1 = BanMenu:AddButton({
     icon = '',
     label = Lang:t("info.reason"),
     value = "reason",
     description = Lang:t("desc.ban_reason"),
-    select = function(btn)
+    select = function()
         local dialog = exports['qb-input']:ShowInput({
             header = Lang:t("desc.ban_reason"),
             submitText = "Confirm",
@@ -83,7 +84,7 @@ local BanMenuButton2 = BanMenu:AddSlider({
         value = "self",
         description = Lang:t("time.ban_length")
     }},
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = 'Ban Length',
@@ -110,7 +111,7 @@ local BanMenuButton3 = BanMenu:AddButton({
     label = Lang:t("info.confirm"),
     value = "ban",
     description = Lang:t("desc.confirm_ban"),
-    select = function(btn)
+    select = function()
         if banreason ~= 'Unknown' and banlength ~= nil then
             TriggerServerEvent('qb-admin:server:ban', PlayerDetails, banlength, banreason)
             banreason = 'Unknown'
@@ -126,7 +127,7 @@ local KickMenuButton1 = KickMenu:AddButton({
     label = Lang:t("info.reason"),
     value = "reason",
     description = Lang:t("desc.kick_reason"),
-    select = function(btn)
+    select = function()
         local dialog = exports['qb-input']:ShowInput({
             header = Lang:t("desc.kick_reason"),
             submitText = "Confirm",
@@ -149,7 +150,7 @@ local KickMenuButton2 = KickMenu:AddButton({
     label = Lang:t("info.confirm"),
     value = "kick",
     description = Lang:t("desc.confirm_kick"),
-    select = function(btn)
+    select = function()
         if kickreason ~= 'Unknown' then
             TriggerServerEvent('qb-admin:server:kick', PlayerDetails, kickreason)
             kickreason = 'Unknown'
@@ -176,17 +177,14 @@ local PermsMenuButton1 = PermsMenu:AddSlider({
         value = 'god',
         description = 'Group'
     }},
-    change = function(item, newValue, oldValue)
+    change = function(_, newValue, _)
         local vcal = newValue
         if vcal == 1 then
-            selectedgroup = {}
-            selectedgroup[#selectedgroup+1] = {rank = "user", label = "User"}
+            selectedgroup = {rank = "user", label = "User"}
         elseif vcal == 2 then
-            selectedgroup = {}
-            selectedgroup[#selectedgroup+1] = {rank = "AdminmenuAdmin", label = "Admin"}
+            selectedgroup = {rank = "AdminmenuAdmin", label = "Admin"}
         elseif vcal == 3 then
-            selectedgroup = {}
-            selectedgroup[#selectedgroup+1] = {rank = "AdminmenuGod", label = "God"}
+            selectedgroup = {rank = "AdminmenuGod", label = "God"}
         end
     end
 })
@@ -195,10 +193,10 @@ local PermsMenuButton2 = PermsMenu:AddButton({
     label = Lang:t("info.confirm"),
     value = "giveperms",
     description = 'Give the permission group',
-    select = function(btn)
-        if selectedgroup ~= 'Unknown' then
+    select = function()
+        if selectedgroup then
             TriggerServerEvent('qb-admin:server:setPermissions', PlayerDetails.id, selectedgroup)
-            selectedgroup = 'Unknown'
+            selectedgroup = nil
         else
             QBCore.Functions.Notify(Lang:t("error.changed_perm_failed"), 'error')
         end
@@ -218,7 +216,7 @@ local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
         value = 'Self',
         description = Lang:t("desc.item_self")
     }},
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         if newValue == 'Self' then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("desc.item_self"),
@@ -243,7 +241,7 @@ local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
                 }
             }
 
-            for k, v in pairs(QBCore.Shared.Items) do
+            for _, v in pairs(QBCore.Shared.Items) do
                 ItemMenu[#ItemMenu + 1] = {
                     header = v['label'],
                     txt = "",
@@ -265,7 +263,7 @@ local GiveItemMenuButton2 = GiveItemMenu:AddButton({
     label = Lang:t("info.amount"),
     value = "reason",
     description = Lang:t("desc.amount"),
-    select = function(btn)
+    select = function()
         local dialog = exports['qb-input']:ShowInput({
             header = Lang:t("desc.amount"),
             submitText = "Confirm",
@@ -288,7 +286,7 @@ local GiveItemMenuButton3 = GiveItemMenu:AddButton({
     label = Lang:t("info.confirm"),
     value = "kick",
     description = Lang:t("desc.confirm_kick"),
-    select = function(btn)
+    select = function()
         if itemname ~= 'Unknown' and itemamount ~= 0 then
             TriggerServerEvent('QBCore:CallCommand', "giveitem", {PlayerDetails.id, itemname, itemamount})
             itemname = 'Unknown'
@@ -304,7 +302,7 @@ local SoundMenuButton1 = SoundMenu:AddButton({
     label = Lang:t("info.sound"),
     value = "reason",
     description = Lang:t("desc.sound"),
-    select = function(btn)
+    select = function()
         TriggerServerEvent('qb-admin:server:getsounds')
     end
 })
@@ -358,7 +356,7 @@ local SoundMenuButton2 = SoundMenu:AddSlider({
         description = Lang:t("volume.volume")
     }},
     description = Lang:t("volume.volume_desc"),
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("volume.volume_desc"),
@@ -430,7 +428,7 @@ local SoundMenuButton3 = SoundMenu:AddSlider({
         description = Lang:t("volume.radius")
     }},
     description = Lang:t("volume.radius_desc"),
-    select = function(btn, newValue, oldValue)
+    select = function(_, newValue, _)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("volume.radius_desc"),
@@ -457,7 +455,7 @@ local SoundMenuButton4 = SoundMenu:AddButton({
     label = Lang:t("info.confirm_play"),
     value = '',
     description = Lang:t("desc.confirm_play"),
-    select = function(btn)
+    select = function()
         if soundname ~= 'Unknown' and soundvolume ~= 0 then
             TriggerServerEvent('InteractSound_SV:PlayOnOne', PlayerDetails.id, soundname, soundvolume)
         else
@@ -470,7 +468,7 @@ local SoundMenuButton5 = SoundMenu:AddButton({
     label = Lang:t("info.confirm_play_radius"),
     value = '',
     description = Lang:t("desc.confirm_play_radius"),
-    select = function(btn)
+    select = function()
         if soundname ~= 'Unknown' and soundvolume ~= 0 and soundrange ~= 0 then
             TriggerServerEvent('qb-admin:server:playsound', PlayerDetails.id, soundname, soundvolume, soundrange)
         else
@@ -488,7 +486,7 @@ function OpenPlayerMenus()
         value = PlayerGeneralMenu,
         description = Lang:t("desc.admin_options_desc")
     })
-    PlayersButton1:On('select', function(item)
+    PlayersButton1:On('select', function()
         PlayerGeneralMenu:ClearItems()
         local elements = {
             [1] = {
@@ -534,7 +532,7 @@ function OpenPlayerMenus()
                 description = Lang:t("desc.sit_in_veh_desc") .. " " .. PlayerDetails.name .. " " .. Lang:t("desc.sit_in_veh_desc2")
             }
         }
-        for k, v in ipairs(elements) do
+        for _, v in ipairs(elements) do
             local PlayerGeneralButton = PlayerGeneralMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
@@ -551,7 +549,7 @@ function OpenPlayerMenus()
             label = Lang:t("menu.routingbucket"),
             value = "routingbucket",
             description = Lang:t("desc.routingbucket"),
-            select = function(btn)
+            select = function()
                 local dialog = exports['qb-input']:ShowInput({
                     header = Lang:t("desc.routingbucket"),
                     submitText = "Confirm",
@@ -577,7 +575,7 @@ function OpenPlayerMenus()
         value = PlayerAdminMenu,
         description = Lang:t("desc.player_administration")
     })
-    PlayersButton2:On('select', function(item)
+    PlayersButton2:On('select', function()
         PlayerAdminMenu:ClearItems()
         local elements = {
             [1] = {
@@ -599,7 +597,7 @@ function OpenPlayerMenus()
                 description = Lang:t("info.give") .. " " .. PlayerDetails.name .. " " .. Lang:t("menu.permissions")
             }
         }
-        for k, v in ipairs(elements) do
+        for _, v in ipairs(elements) do
             local PlayerAdminButton = PlayerAdminMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
@@ -625,7 +623,7 @@ function OpenPlayerMenus()
         value = PlayerExtraMenu,
         description = Lang:t("desc.player_extra_desc")
     })
-    PlayersButton3:On('select', function(item)
+    PlayersButton3:On('select', function()
         PlayerExtraMenu:ClearItems()
         local elements = {
             [1] = {
@@ -659,7 +657,7 @@ function OpenPlayerMenus()
                 description = Lang:t("desc.mute_player")
             },
         }
-        for k, v in ipairs(elements) do
+        for _, v in ipairs(elements) do
             local PlayerExtraButton = PlayerExtraMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
@@ -714,7 +712,7 @@ function OpenPlayerMenus()
                 value = 'heavy',
                 description = Lang:t("desc.give_weapons")
             }},
-            select = function(btn, newValue, oldValue)
+            select = function(_, newValue, _)
                 TriggerServerEvent('qb-admin:server:giveallweapons', newValue, PlayerDetails.id)
             end
         })
@@ -786,7 +784,7 @@ function OpenPlayerMenus()
             value = 'radio'
         },
     }
-    for k, v in ipairs(elements) do
+    for _, v in ipairs(elements) do
         local PlayersButton4 = PlayerDetailMenu:AddButton({
             label = ' ' .. v.label,
             value = v.value,

@@ -88,7 +88,7 @@ end
 RegisterNetEvent('qb-admin:server:GetPlayersForBlips', function()
     local src = source
     local players = {}
-    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+    for _, v in pairs(QBCore.Functions.GetPlayers()) do
         local targetped = GetPlayerPed(v)
         local ped = QBCore.Functions.GetPlayer(v)
         players[#players+1] = {
@@ -244,9 +244,9 @@ RegisterNetEvent('qb-admin:server:setPermissions', function(targetId, group)
 
     if not (QBCore.Functions.HasPermission(src, events['setPermissions'])) then return end
 
-    TriggerClientEvent('QBCore:Notify', targetId, Lang:t("info.rank_level")..group[1].label)
-    TriggerClientEvent('QBCore:Notify', src, Lang:t("success.changed_perm")..' : '..group[1].label)
-    UpdatePermission(targetId, group[1].rank)
+    TriggerClientEvent('QBCore:Notify', targetId, Lang:t("info.rank_level")..group.label)
+    TriggerClientEvent('QBCore:Notify', src, Lang:t("success.changed_perm")..' : '..group.label)
+    UpdatePermission(targetId, group.rank)
 end)
 
 RegisterNetEvent('qb-admin:server:cloth', function(player)
@@ -263,10 +263,10 @@ RegisterNetEvent('qb-admin:server:spawnVehicle', function(model)
     local player = GetPlayerPed(src)
     local coords = GetEntityCoords(player)
     local heading = GetEntityHeading(player)
-    local vehicle = GetVehiclePedIsIn(player, false)
+    local oldvehicle = GetVehiclePedIsIn(player, false)
 
     if not (QBCore.Functions.HasPermission(src, events['spawnVehicle'])) then return end
-    if vehicle ~= 0 then DeleteEntity(vehicle) end
+    if oldvehicle ~= 0 then DeleteEntity(oldvehicle) end
 
     local vehicle = CreateVehicle(hash, coords, true, true)
     while not DoesEntityExist(vehicle) do
@@ -277,7 +277,7 @@ RegisterNetEvent('qb-admin:server:spawnVehicle', function(model)
     TriggerClientEvent('vehiclekeys:client:SetOwner', src, GetVehicleNumberPlateText(vehicle))
 end)
 
-RegisterNetEvent('qb-admin:server:SaveCar', function(mods, vehicle, hash, plate)
+RegisterNetEvent('qb-admin:server:SaveCar', function(mods, vehicle, plate)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = MySQL.Sync.fetchAll('SELECT plate FROM player_vehicles WHERE plate = ?', { plate })
@@ -300,18 +300,18 @@ end)
 RegisterNetEvent('qb-admin:server:vehicleplate', function(Plate)
     local src = source
     local Vehicle = GetVehiclePedIsIn(GetPlayerPed(src), false)
-    local Plate = Trim(Plate):upper()
+    local NewPlate = Trim(Plate):upper()
     local OldPlate = Trim(GetVehicleNumberPlateText(Vehicle))
     local VehicleHash = GetEntityModel(Vehicle)
 
     if not (QBCore.Functions.HasPermission(src, events['platecar'])) then return end
     if Vehicle == 0 then return end
 
-    SetVehicleNumberPlateText(Vehicle, Plate)
-    TriggerClientEvent('vehiclekeys:client:SetOwner', src, Plate)
+    SetVehicleNumberPlateText(Vehicle, NewPlate)
+    TriggerClientEvent('vehiclekeys:client:SetOwner', src, NewPlate)
     local result = MySQL.single.await('SELECT * FROM player_vehicles WHERE plate = ? AND hash = ?', {OldPlate, VehicleHash})
     if not result then return end
-    MySQL.update('UPDATE player_vehicles SET plate = ? WHERE plate = ? AND hash = ? AND citizenid = ?', {Plate, OldPlate, VehicleHash, result.citizenid})
+    MySQL.update('UPDATE player_vehicles SET plate = ? WHERE plate = ? AND hash = ? AND citizenid = ?', {NewPlate, OldPlate, VehicleHash, result.citizenid})
 end)
 
 RegisterNetEvent('qb-admin:server:getsounds', function()
@@ -323,7 +323,7 @@ RegisterNetEvent('qb-admin:server:getsounds', function()
 end)
 
 AddEventHandler('qb-admin:server:SendReport', function(name, targetSrc, msg)
-    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+    for _, v in pairs(QBCore.Functions.GetPlayers()) do
         if QBCore.Functions.HasPermission(v, 'adminmenu.admin') then
             TriggerClientEvent('chat:addMessage', v, {
                 color = {255, 0, 0},
@@ -335,7 +335,7 @@ AddEventHandler('qb-admin:server:SendReport', function(name, targetSrc, msg)
 end)
 
 AddEventHandler('qb-admin:server:Staffchat:addMessage', function(name, msg)
-    for k, v in pairs(QBCore.Functions.GetPlayers()) do
+    for _, v in pairs(QBCore.Functions.GetPlayers()) do
         if QBCore.Functions.HasPermission(v, 'adminmenu.admin') then
             TriggerClientEvent('chat:addMessage', v, {
                 color = {255, 0, 0},
@@ -361,7 +361,7 @@ RegisterNetEvent('qb-admin:server:getradiolist', function(channel)
 
     if not (QBCore.Functions.HasPermission(src, events['getradiolist'])) then return end
 
-    for targetSource, isTalking in pairs(list) do -- cheers Knight who shall not be named
+    for targetSource, _ in pairs(list) do -- cheers Knight who shall not be named
         local Player = QBCore.Functions.GetPlayer(targetSource)
         Players[#Players + 1] = {
             id = targetSource,
@@ -392,6 +392,8 @@ RegisterNetEvent('qb-admin:server:giveallweapons', function(Weapontype, PlayerID
 end)
 
 QBCore.Functions.CreateCallback('qb-adminmenu:callback:getdealers', function(source, cb)
+    if not QBCore.Functions.HasPermission(source, events['usemenu']) then return end
+
     cb(exports['qb-drugs']:GetDealers())
 end)
 
@@ -399,8 +401,7 @@ QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayers', function(sou
     if not QBCore.Functions.HasPermission(source, events['usemenu']) then return end
 
     local players = {}
-    for k, v in pairs(QBCore.Functions.GetPlayers()) do
-        local targetped = GetPlayerPed(v)
+    for _, v in pairs(QBCore.Functions.GetPlayers()) do
         local ped = QBCore.Functions.GetPlayer(v)
         players[#players+1] = {
             id = v,
@@ -431,7 +432,7 @@ QBCore.Functions.CreateCallback('qb-adminmenu:callback:getplayer', function(sour
     if not QBCore.Functions.HasPermission(source, events['usemenu']) then return end
 
     local ped = QBCore.Functions.GetPlayer(TargetID)
-    player = {
+    local player = {
         id = TargetID,
         cid = ped.PlayerData.citizenid,
         name = ped.PlayerData.charinfo.firstname .. ' ' .. ped.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(TargetID) .. ')',
@@ -462,7 +463,7 @@ CreateThread(function()
             Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
         end
     end
-    PerformHttpRequest('https://api.github.com/repos/Disabled-Coding/dc-adminmenu/releases/latest', function(errorCode, resultData, resultHeaders)
+    PerformHttpRequest('https://api.github.com/repos/Disabled-Coding/dc-adminmenu/releases/latest', function(_, resultData, _)
         if not resultData then print('Failed to check for updates') return end
         local result = json.decode(resultData)
         if GetResourceMetadata(GetCurrentResourceName(), 'version') ~= result.tag_name then

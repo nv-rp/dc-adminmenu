@@ -37,10 +37,10 @@ local MainMenuButton2 = MainMenu:AddButton({
     value = PlayerMenu,
     description = Lang:t("desc.player_management_desc")
 })
-MainMenuButton2:On('select', function(item)
+MainMenuButton2:On('select', function()
     PlayerMenu:ClearItems()
     QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getplayers', function(players)
-        for k, v in pairs(players) do
+        for _, v in pairs(players) do
             local PlayerMenuButton = PlayerMenu:AddButton({
                 label = Lang:t("info.id") .. v["id"] .. ' | ' .. v["name"],
                 value = v,
@@ -135,7 +135,7 @@ RegisterNetEvent('qb-admin:client:SaveCar', function()
         local hash = props.model
         local vehname = GetDisplayNameFromVehicleModel(hash):lower()
         if QBCore.Shared.Vehicles[vehname] ~= nil and next(QBCore.Shared.Vehicles[vehname]) ~= nil then
-            TriggerServerEvent('qb-admin:server:SaveCar', props, QBCore.Shared.Vehicles[vehname], GetHashKey(veh), plate)
+            TriggerServerEvent('qb-admin:server:SaveCar', props, QBCore.Shared.Vehicles[vehname], plate)
         else
             QBCore.Functions.Notify(Lang:t("error.no_store_vehicle_garage"), 'error')
         end

@@ -45,7 +45,7 @@ function toggleNoclip()
         end
         while noClipEnabled do
         Wait(0)
-        local rv, fv, uv, campos = GetCamMatrix(noClipCam)
+        local _, fv, _, _ = GetCamMatrix(noClipCam)
 
         if IsDisabledControlPressed(2, 17) then -- MWheelUp
             speed = math.min(speed + 0.1, maxSpeed)

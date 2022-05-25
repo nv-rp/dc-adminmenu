@@ -99,8 +99,8 @@ ServerMenuButton1:On("select",function()
             description = Lang:t("weather.halloween_desc")
         }
     }
-    for k, v in ipairs(elements) do
-        local WeatherButton = WeatherMenu:AddButton({icon = v.icon,label = v.label,value = v,description = v.description,select = function(btn)
+    for _, v in ipairs(elements) do
+        local WeatherButton = WeatherMenu:AddButton({icon = v.icon,label = v.label,value = v,description = v.description, select = function(btn)
             local selection = btn.Value
             TriggerServerEvent('qb-weathersync:server:setWeather', selection.value)
             QBCore.Functions.Notify(Lang:t("weather.weather_changed", {value = selection.label}))
@@ -210,7 +210,7 @@ local ServerMenuButton2 = ServerMenu:AddSlider({
         description = Lang:t("menu.time")
     }}
 })
-ServerMenuButton2:On("select", function(item, value)
+ServerMenuButton2:On("select", function(_, value)
     TriggerServerEvent("qb-weathersync:server:setTime", value, value)
     QBCore.Functions.Notify(Lang:t("time.changed", {time = value}))
 end)
@@ -239,7 +239,7 @@ local function OpenDealerMenu(dealer)
             description = Lang:t("desc.dealerremove_desc") .. " " .. dealer["name"]
         }
     }
-    for k, v in ipairs(elements) do
+    for _, v in ipairs(elements) do
         local EditDealerButton = EditDealer:AddButton({
             icon = v.icon,
             label = ' ' .. v.label,
@@ -258,10 +258,10 @@ local function OpenDealerMenu(dealer)
         })
     end
 end
-ServerMenuButton3:On('Select', function(item)
+ServerMenuButton3:On('Select', function()
     DealerMenu:ClearItems()
     QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getdealers', function(dealers)
-        for k, v in pairs(dealers) do
+        for _, v in pairs(dealers) do
             local DealerMenuButton1 = DealerMenu:AddButton({
                 label = v["name"],
                 value = v,
@@ -280,7 +280,7 @@ local ServerMenuButton4 = ServerMenu:AddButton({
     label = Lang:t("info.radio_list"),
     value = '',
     description = Lang:t("desc.radio_list"),
-    select = function(btn)
+    select = function()
         local dialog = exports['qb-input']:ShowInput({
             header = Lang:t("info.radio_list"),
             submitText = "Confirm",
@@ -325,7 +325,7 @@ local ServerMenuButton5 = ServerMenu:AddButton({
     label = Lang:t("menu.pull_stash"),
     value = '',
     description = Lang:t("desc.pull_stash"),
-    select = function(btn)
+    select = function()
         local dialog = exports['qb-input']:ShowInput({
             header = Lang:t("menu.pull_stash"),
             submitText = "Confirm",
