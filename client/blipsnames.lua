@@ -207,20 +207,7 @@ RegisterNetEvent('qb-admin:client:Show', function(players)
                 SetBlipRotation(blip, math.ceil(GetEntityHeading(veh)))
                 SetBlipNameToPlayerName(blip, playeridx)
                 SetBlipScale(blip, 0.85)
-
-                if IsPauseMenuActive() then
-                    SetBlipAlpha(blip, 255)
-                else
-                    local x1, y1 = table.unpack(GetEntityCoords(PlayerPedId(), true))
-                    local x2, y2 = table.unpack(GetEntityCoords(GetPlayerPed(playeridx), true))
-                    local distance = (math.floor(math.abs(math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))) / -1)) + 900
-                    if distance < 0 then
-                        distance = 0
-                    elseif distance > 255 then
-                        distance = 255
-                    end
-                    SetBlipAlpha(blip, distance)
-                end
+                SetBlipAlpha(blip, 255)
             end
         else
             RemoveBlip(blip)

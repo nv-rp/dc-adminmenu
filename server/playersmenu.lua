@@ -67,7 +67,7 @@ RegisterNetEvent('qb-admin:server:phone', function(Target, Input)
     if not type_check({tostring(Input), 'string'}) then return end
     if not TargetInfo then return end
 
-    TargetInto.PlayerData.charinfo.phone = Input
+    TargetInfo.PlayerData.charinfo.phone = Input
     QBCore.Player.CheckPlayerData(Target.id, TargetInfo.PlayerData)
 end)
 

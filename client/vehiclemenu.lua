@@ -103,3 +103,27 @@ VehicleMenuButton5:On('Select', function(item)
     TriggerEvent('qb-customs:client:EnterCustoms', override)
     MenuV:CloseAll()
 end)
+
+local VehicleMenuButton6 = VehicleMenu:AddButton({
+    icon = '🪧',
+    label = Lang:t("menu.plate_car"),
+    value = '',
+    description = Lang:t("desc.plate_car")
+})
+VehicleMenuButton6:On('Select', function(item)
+    local dialog = exports['qb-input']:ShowInput({
+        header = Lang:t("desc.plate_car"),
+        submitText = "Confirm",
+        inputs = {
+            {
+                text = "GEB654TY",
+                name = "plate",
+                type = "text",
+                isRequired = true
+            }
+        }
+    })
+    if dialog then
+        TriggerServerEvent('qb-admin:server:vehicleplate', dialog.plate)
+    end
+end)
