@@ -311,6 +311,7 @@ local function DrawEntityBoundingBox(entity, color)
 end
 
 CreateThread(function()	-- While loop needed for delete lazer
+    local sleep
 	while true do
 		sleep = 1000
 		if deleteLazer then

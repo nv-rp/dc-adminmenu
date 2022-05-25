@@ -24,49 +24,47 @@ VehNameMenu = MenuV:CreateMenu(false, Lang:t("menu.vehicle_models"), menuLocatio
 DealerMenu = MenuV:CreateMenu(false, Lang:t("menu.dealer_list"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:dealermenu')
 DevMenu = MenuV:CreateMenu(false, Lang:t("menu.developer_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:devmenu')
 
-local MainMenuButton1 = MainMenu:AddButton({
+MainMenu:AddButton({
     icon = '😃',
     label = Lang:t("menu.admin_options"),
     value = SelfMenu,
     description = Lang:t("desc.admin_options_desc")
 })
-
-local MainMenuButton2 = MainMenu:AddButton({
+MainMenu:AddButton({
     icon = '🙍‍♂️',
     label = Lang:t("menu.player_management"),
     value = PlayerMenu,
-    description = Lang:t("desc.player_management_desc")
+    description = Lang:t("desc.player_management_desc"),
+    select = function()
+        PlayerMenu:ClearItems()
+        QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getplayers', function(players)
+            for _, v in pairs(players) do
+                local PlayerMenuButton = PlayerMenu:AddButton({
+                    label = Lang:t("info.id") .. v["id"] .. ' | ' .. v["name"],
+                    value = v,
+                    description = Lang:t("info.player_name"),
+                    select = function(btn)
+                        PlayerDetails = btn.Value
+                        OpenPlayerMenus()
+                    end
+                })
+            end
+        end)
+    end
 })
-MainMenuButton2:On('select', function()
-    PlayerMenu:ClearItems()
-    QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getplayers', function(players)
-        for _, v in pairs(players) do
-            local PlayerMenuButton = PlayerMenu:AddButton({
-                label = Lang:t("info.id") .. v["id"] .. ' | ' .. v["name"],
-                value = v,
-                description = Lang:t("info.player_name"),
-                select = function(btn)
-                    PlayerDetails = btn.Value
-                    OpenPlayerMenus()
-                end
-            })
-        end
-    end)
-end)
-
-local MainMenuButton3 = MainMenu:AddButton({
+MainMenu:AddButton({
     icon = '🎮',
     label = Lang:t("menu.server_management"),
     value = ServerMenu,
     description = Lang:t("desc.server_management_desc")
 })
-local MainMenuButton4 = MainMenu:AddButton({
+MainMenu:AddButton({
     icon = '🚗',
     label = Lang:t("menu.vehicles"),
     value = VehicleMenu,
     description = Lang:t("desc.vehicles_desc")
 })
-local MainMenuButton5 = MainMenu:AddButton({
+MainMenu:AddButton({
     icon = '🔧',
     label = Lang:t("menu.developer_options"),
     value = DevMenu,

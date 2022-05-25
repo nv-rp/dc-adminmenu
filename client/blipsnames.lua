@@ -186,7 +186,7 @@ RegisterNetEvent('qb-admin:client:Show', function(players)
                         end
                     end
                     -- Show number in case of passangers
-                    passengers = GetVehicleNumberOfPassengers(veh)
+                    local passengers = GetVehicleNumberOfPassengers(veh)
                     if passengers then
                         if not IsVehicleSeatFree(veh, -1) then
                             passengers = passengers + 1

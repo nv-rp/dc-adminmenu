@@ -100,7 +100,7 @@ ServerMenuButton1:On("select",function()
         }
     }
     for _, v in ipairs(elements) do
-        local WeatherButton = WeatherMenu:AddButton({icon = v.icon,label = v.label,value = v,description = v.description, select = function(btn)
+        WeatherMenu:AddButton({icon = v.icon,label = v.label,value = v,description = v.description, select = function(btn)
             local selection = btn.Value
             TriggerServerEvent('qb-weathersync:server:setWeather', selection.value)
             QBCore.Functions.Notify(Lang:t("weather.weather_changed", {value = selection.label}))
@@ -240,7 +240,7 @@ local function OpenDealerMenu(dealer)
         }
     }
     for _, v in ipairs(elements) do
-        local EditDealerButton = EditDealer:AddButton({
+        EditDealer:AddButton({
             icon = v.icon,
             label = ' ' .. v.label,
             value = v.value,
@@ -262,7 +262,7 @@ ServerMenuButton3:On('Select', function()
     DealerMenu:ClearItems()
     QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getdealers', function(dealers)
         for _, v in pairs(dealers) do
-            local DealerMenuButton1 = DealerMenu:AddButton({
+            DealerMenu:AddButton({
                 label = v["name"],
                 value = v,
                 description = Lang:t("menu.dealer_name"),
@@ -275,7 +275,7 @@ ServerMenuButton3:On('Select', function()
     end)
 end)
 
-local ServerMenuButton4 = ServerMenu:AddButton({
+ServerMenu:AddButton({
     icon = '📻',
     label = Lang:t("info.radio_list"),
     value = '',
@@ -320,7 +320,7 @@ RegisterNetEvent('qb-admin:client:getradiolist', function(data, channel)
     exports['qb-menu']:openMenu(RadioMenu)
 end)
 
-local ServerMenuButton5 = ServerMenu:AddButton({
+ServerMenu:AddButton({
     icon = '📦',
     label = Lang:t("menu.pull_stash"),
     value = '',

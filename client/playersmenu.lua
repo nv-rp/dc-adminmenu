@@ -8,7 +8,7 @@ local banlength = nil
 local kickreason = 'Unknown'
 local selectedgroup = nil
 
-local BanMenuButton1 = BanMenu:AddButton({
+BanMenu:AddButton({
     icon = '',
     label = Lang:t("info.reason"),
     value = "reason",
@@ -31,7 +31,7 @@ local BanMenuButton1 = BanMenu:AddButton({
         end
     end
 })
-local BanMenuButton2 = BanMenu:AddSlider({
+BanMenu:AddSlider({
     icon = '⏲️',
     label = Lang:t("info.length"),
     value = '3600',
@@ -84,7 +84,7 @@ local BanMenuButton2 = BanMenu:AddSlider({
         value = "self",
         description = Lang:t("time.ban_length")
     }},
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = 'Ban Length',
@@ -106,7 +106,7 @@ local BanMenuButton2 = BanMenu:AddSlider({
         end
     end
 })
-local BanMenuButton3 = BanMenu:AddButton({
+BanMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm"),
     value = "ban",
@@ -122,7 +122,7 @@ local BanMenuButton3 = BanMenu:AddButton({
     end
 })
 
-local KickMenuButton1 = KickMenu:AddButton({
+KickMenu:AddButton({
     icon = '',
     label = Lang:t("info.reason"),
     value = "reason",
@@ -145,7 +145,7 @@ local KickMenuButton1 = KickMenu:AddButton({
         end
     end
 })
-local KickMenuButton2 = KickMenu:AddButton({
+KickMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm"),
     value = "kick",
@@ -160,7 +160,7 @@ local KickMenuButton2 = KickMenu:AddButton({
     end
 })
 
-local PermsMenuButton1 = PermsMenu:AddSlider({
+PermsMenu:AddSlider({
     icon = '',
     label = 'Group',
     value = 'user',
@@ -177,7 +177,7 @@ local PermsMenuButton1 = PermsMenu:AddSlider({
         value = 'god',
         description = 'Group'
     }},
-    change = function(_, newValue, _)
+    change = function(_, newValue)
         local vcal = newValue
         if vcal == 1 then
             selectedgroup = {rank = "user", label = "User"}
@@ -188,7 +188,7 @@ local PermsMenuButton1 = PermsMenu:AddSlider({
         end
     end
 })
-local PermsMenuButton2 = PermsMenu:AddButton({
+PermsMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm"),
     value = "giveperms",
@@ -203,7 +203,7 @@ local PermsMenuButton2 = PermsMenu:AddButton({
     end
 })
 
-local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
+GiveItemMenu:AddSlider({
     icon = '',
     label = Lang:t("info.item"),
     value = "reason",
@@ -216,7 +216,7 @@ local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
         value = 'Self',
         description = Lang:t("desc.item_self")
     }},
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         if newValue == 'Self' then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("desc.item_self"),
@@ -258,7 +258,7 @@ local GiveItemMenuButton1 = GiveItemMenu:AddSlider({
         end
     end
 })
-local GiveItemMenuButton2 = GiveItemMenu:AddButton({
+GiveItemMenu:AddButton({
     icon = '',
     label = Lang:t("info.amount"),
     value = "reason",
@@ -281,7 +281,7 @@ local GiveItemMenuButton2 = GiveItemMenu:AddButton({
         end
     end
 })
-local GiveItemMenuButton3 = GiveItemMenu:AddButton({
+GiveItemMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm"),
     value = "kick",
@@ -297,7 +297,7 @@ local GiveItemMenuButton3 = GiveItemMenu:AddButton({
     end
 })
 
-local SoundMenuButton1 = SoundMenu:AddButton({
+SoundMenu:AddButton({
     icon = '',
     label = Lang:t("info.sound"),
     value = "reason",
@@ -306,7 +306,7 @@ local SoundMenuButton1 = SoundMenu:AddButton({
         TriggerServerEvent('qb-admin:server:getsounds')
     end
 })
-local SoundMenuButton2 = SoundMenu:AddSlider({
+SoundMenu:AddSlider({
     icon = '',
     label = Lang:t("volume.volume"),
     value = '0.5',
@@ -356,7 +356,7 @@ local SoundMenuButton2 = SoundMenu:AddSlider({
         description = Lang:t("volume.volume")
     }},
     description = Lang:t("volume.volume_desc"),
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("volume.volume_desc"),
@@ -378,7 +378,7 @@ local SoundMenuButton2 = SoundMenu:AddSlider({
         end
     end
 })
-local SoundMenuButton3 = SoundMenu:AddSlider({
+SoundMenu:AddSlider({
     icon = '',
     label = Lang:t("volume.radius"),
     value = '0.5',
@@ -428,7 +428,7 @@ local SoundMenuButton3 = SoundMenu:AddSlider({
         description = Lang:t("volume.radius")
     }},
     description = Lang:t("volume.radius_desc"),
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         if newValue == "self" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("volume.radius_desc"),
@@ -450,7 +450,7 @@ local SoundMenuButton3 = SoundMenu:AddSlider({
         end
     end
 })
-local SoundMenuButton4 = SoundMenu:AddButton({
+SoundMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm_play"),
     value = '',
@@ -463,7 +463,7 @@ local SoundMenuButton4 = SoundMenu:AddButton({
         end
     end
 })
-local SoundMenuButton5 = SoundMenu:AddButton({
+SoundMenu:AddButton({
     icon = '',
     label = Lang:t("info.confirm_play_radius"),
     value = '',
@@ -533,7 +533,7 @@ function OpenPlayerMenus()
             }
         }
         for _, v in ipairs(elements) do
-            local PlayerGeneralButton = PlayerGeneralMenu:AddButton({
+            PlayerGeneralMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
                 value = v.value,
@@ -544,7 +544,7 @@ function OpenPlayerMenus()
                 end
             })
         end
-        local PlayerGeneralRoutingbucket = PlayerGeneralMenu:AddButton({
+        PlayerGeneralMenu:AddButton({
             icon = '🧿',
             label = Lang:t("menu.routingbucket"),
             value = "routingbucket",
@@ -598,7 +598,7 @@ function OpenPlayerMenus()
             }
         }
         for _, v in ipairs(elements) do
-            local PlayerAdminButton = PlayerAdminMenu:AddButton({
+            PlayerAdminMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
                 value = v.value,
@@ -658,7 +658,7 @@ function OpenPlayerMenus()
             },
         }
         for _, v in ipairs(elements) do
-            local PlayerExtraButton = PlayerExtraMenu:AddButton({
+            PlayerExtraMenu:AddButton({
                 icon = v.icon,
                 label = ' ' .. v.label,
                 value = v.value,
@@ -679,7 +679,7 @@ function OpenPlayerMenus()
                 end
             })
         end
-        local PlayerExtraButton = PlayerExtraMenu:AddSlider({
+        PlayerExtraMenu:AddSlider({
             icon = '🔫',
             label = Lang:t("menu.give_weapons"),
             value = '',
@@ -712,7 +712,7 @@ function OpenPlayerMenus()
                 value = 'heavy',
                 description = Lang:t("desc.give_weapons")
             }},
-            select = function(_, newValue, _)
+            select = function(_, newValue)
                 TriggerServerEvent('qb-admin:server:giveallweapons', newValue, PlayerDetails.id)
             end
         })
@@ -785,7 +785,7 @@ function OpenPlayerMenus()
         },
     }
     for _, v in ipairs(elements) do
-        local PlayersButton4 = PlayerDetailMenu:AddButton({
+        PlayerDetailMenu:AddButton({
             label = ' ' .. v.label,
             value = v.value,
             description = v.description,

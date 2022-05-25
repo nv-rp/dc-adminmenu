@@ -33,6 +33,7 @@ end
 
 --- Credits https://github.com/prefech/JD_Perms
 function UpdatePermission(source, permission)
+    local OldFile, OldText, NewFile, NewText, File
     local license = QBCore.Functions.GetIdentifier(source, 'license')
     if permission == 'user' then
         OldFile = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'r')
@@ -45,11 +46,11 @@ function UpdatePermission(source, permission)
         ExecuteCommand("remove_principal identifier."..license.." AdminmenuAdmin")
         ExecuteCommand("remove_principal identifier."..license.." AdminmenuGod")
     else
-        file = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'a')
-        io.output(file)
+        File = io.open('resources/[qb]/dc-adminmenu/permissions.cfg', 'a')
+        io.output(File)
         local data = "\nadd_principal identifier."..license.." "..permission.. "  # ".. GetPlayerName(source)
         io.write(data)
-        io.close(file)
+        io.close(File)
         ExecuteCommand("add_principal identifier."..license.." "..permission)
     end
 end
@@ -357,7 +358,7 @@ end)
 RegisterNetEvent('qb-admin:server:getradiolist', function(channel)
     local src = source
     local list = exports['pma-voice']:getPlayersInRadioChannel(tonumber(channel))
-    local Players = { id, name }
+    local Players = {}
 
     if not (QBCore.Functions.HasPermission(src, events['getradiolist'])) then return end
 

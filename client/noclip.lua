@@ -1,5 +1,6 @@
-noClipEnabled = false
-
+local noClipEnabled = false
+local ent
+local Invisible
 local noClipCam = nil
 
 local speed = 1.0
@@ -15,10 +16,10 @@ function toggleNoclip()
         local inVehicle = false
 
         if veh ~= 0 then
-        inVehicle = true
-        ent = veh
+            inVehicle = true
+            ent = veh
         else
-        ent = ped
+            ent = ped
         end
 
         local pos = GetEntityCoords(ent)
@@ -174,11 +175,11 @@ function checkInputRotation()
     
             if (math.abs(axisX) > 0) or (math.abs(axisY) > 0) then
                 local rotation = GetCamRot(noClipCam, 2)
-                rotz = rotation.z + (axisX * sensitivity)
+                local rotz = rotation.z + (axisX * sensitivity)
         
                 local yValue = (axisY * sensitivity)
         
-                rotx = rotation.x
+                local rotx = rotation.x
         
                 if rotx + yValue > minY and rotx + yValue < maxY then
                     rotx = rotation.x + yValue

@@ -2,7 +2,7 @@ local function OpenCarModelsMenu(category)
     VehNameMenu:ClearItems()
     MenuV:OpenMenu(VehNameMenu)
     for k, v in pairs(category) do
-        local menu_button10 = VehNameMenu:AddButton({
+        VehNameMenu:AddButton({
             label = v["name"],
             value = k,
             description = 'Spawn ' .. v["name"],
@@ -30,7 +30,7 @@ VehicleMenuButton1:On('Select', function()
         vehicles[category][k] = v
     end
     for k, v in pairs(vehicles) do
-        local menu_button10 = VehCategorieMenu:AddButton({
+        VehCategorieMenu:AddButton({
             label = k,
             value = v,
             description = Lang:t("menu.category_name"),

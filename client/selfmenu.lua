@@ -77,7 +77,7 @@ SelfMenuButton7:On('change', function()
         SetEntityInvincible(vehicle, true)
         SetEntityCanBeDamaged(vehicle, false)
         while vehiclegodmode do
-            local vehicle = GetVehiclePedIsIn(ped, false)
+            vehicle = GetVehiclePedIsIn(ped, false)
             SetVehicleBodyHealth(vehicle, 1000.0)
             SetVehicleFixed(vehicle)
             SetVehicleEngineHealth(vehicle, 1000.0)
@@ -89,7 +89,7 @@ SelfMenuButton7:On('change', function()
     end
 end)
 
-local SelfMenuButton8 = SelfMenu:AddSlider({
+SelfMenu:AddSlider({
     icon = '👷‍♀️',
     label = Lang:t("menu.ped"),
     value = '',
@@ -102,7 +102,7 @@ local SelfMenuButton8 = SelfMenu:AddSlider({
         value = 'reset',
         description = Lang:t("desc.reset_ped")
     }},
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         if newValue == "ped" then
             local dialog = exports['qb-input']:ShowInput({
                 header = Lang:t("desc.ped"),
@@ -148,7 +148,7 @@ SelfMenuButton9:On('change', function()
     end
 end)
 
-local SelfMenuButton10 = SelfMenu:AddSlider({
+SelfMenu:AddSlider({
     icon = '🔫',
     label = Lang:t("menu.give_weapons"),
     value = '',
@@ -181,7 +181,7 @@ local SelfMenuButton10 = SelfMenu:AddSlider({
         value = 'heavy',
         description = Lang:t("desc.give_weapons")
     }},
-    select = function(_, newValue, _)
+    select = function(_, newValue)
         TriggerServerEvent('qb-admin:server:giveallweapons', newValue)
     end
 })
