@@ -379,6 +379,18 @@ RegisterNetEvent('qb-admin:server:check', function()
     DropPlayer(src, Lang:t("info.dropped"))
 end)
 
+RegisterNetEvent('qb-admin:server:giveallweapons', function(Weapontype, PlayerID)
+    local src = PlayerID or source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if not QBCore.Functions.HasPermission(source, events['giveallweapons']) then return end
+
+    for i = 1, #Weaponlist[Weapontype], 1 do
+        if not QBCore.Shared.Items[Weaponlist[Weapontype][i]] then return end
+        Player.Functions.AddItem(Weaponlist[Weapontype][i], 1)
+    end
+end)
+
 QBCore.Functions.CreateCallback('qb-adminmenu:callback:getdealers', function(source, cb)
     cb(exports['qb-drugs']:GetDealers())
 end)

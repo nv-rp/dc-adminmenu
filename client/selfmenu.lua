@@ -90,7 +90,7 @@ SelfMenuButton7:On('change', function()
 end)
 
 local SelfMenuButton8 = SelfMenu:AddSlider({
-    icon = '📍',
+    icon = '👷‍♀️',
     label = Lang:t("menu.ped"),
     value = '',
     values = {{
@@ -99,7 +99,7 @@ local SelfMenuButton8 = SelfMenu:AddSlider({
         description = Lang:t("desc.ped")
     }, {
         label = Lang:t("menu.reset_ped"),
-        value ='reset',
+        value = 'reset',
         description = Lang:t("desc.reset_ped")
     }},
     select = function(btn, newValue, oldValue)
@@ -126,7 +126,7 @@ local SelfMenuButton8 = SelfMenu:AddSlider({
 })
 
 local SelfMenuButton9 = SelfMenu:AddCheckbox({
-    icon = '🔫',
+    icon = '🎯',
     label = Lang:t("menu.ammo"),
     description = Lang:t("desc.ammo")
 })
@@ -147,3 +147,41 @@ SelfMenuButton9:On('change', function()
         SetPedInfiniteAmmo(ped, false, weapon)
     end
 end)
+
+local SelfMenuButton10 = SelfMenu:AddSlider({
+    icon = '🔫',
+    label = Lang:t("menu.give_weapons"),
+    value = '',
+    values = {{
+        label = Lang:t("menu.weapon_pistol"),
+        value = 'pistol',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_smg"),
+        value = 'smg',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_shotgun"),
+        value = 'shotgun',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_assault"),
+        value = 'assault',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_lmg"),
+        value = 'lmg',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_sniper"),
+        value = 'sniper',
+        description = Lang:t("desc.give_weapons")
+    }, {
+        label = Lang:t("menu.weapon_heavy"),
+        value = 'heavy',
+        description = Lang:t("desc.give_weapons")
+    }},
+    select = function(btn, newValue, oldValue)
+        TriggerServerEvent('qb-admin:server:giveallweapons', newValue)
+    end
+})

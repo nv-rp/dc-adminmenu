@@ -142,6 +142,14 @@ local Translations = {
         ["pull_stash"] = "Pull Stash",
         ["tune_car"] = "Tune Car",
         ["plate_car"] = "Change Plate",
+        ["give_weapons"] = "Give All",
+        ["weapon_pistol"] = "Pistols",
+        ["weapon_smg"] = "SMGs",
+        ["weapon_shotgun"] = "Shotguns",
+        ["weapon_assault"] = "Assault Rifles",
+        ["weapon_lmg"] = "LMGs",
+        ["weapon_sniper"] = "Snipers",
+        ["weapon_heavy"] = "Heavy Weapons",
     },
     desc = {
         ["admin_options_desc"] = "Misc. Admin Options",
@@ -199,6 +207,7 @@ local Translations = {
         ["pull_stash"] = "Pull A Stash By Entering The Name",
         ["tune_car"] = "Upgrade Your Car",
         ["plate_car"] = "Change The Car's Numberplate",
+        ["give_weapons"] = "Give All Weapons From One Type",
     },
     time = {
         ["ban_length"] = "Ban Length",

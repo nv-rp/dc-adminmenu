@@ -616,7 +616,7 @@ function OpenPlayerMenus()
                     end
                 end
             })
-        end    
+        end
     end)
 
     local PlayersButton3 = PlayerDetailMenu:AddButton({
@@ -680,7 +680,44 @@ function OpenPlayerMenus()
                     end
                 end
             })
-        end    
+        end
+        local PlayerExtraButton = PlayerExtraMenu:AddSlider({
+            icon = '🔫',
+            label = Lang:t("menu.give_weapons"),
+            value = '',
+            values = {{
+                label = Lang:t("menu.weapon_pistol"),
+                value = 'pistol',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_smg"),
+                value = 'smg',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_shotgun"),
+                value = 'shotgun',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_assault"),
+                value = 'assault',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_lmg"),
+                value = 'lmg',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_sniper"),
+                value = 'sniper',
+                description = Lang:t("desc.give_weapons")
+            }, {
+                label = Lang:t("menu.weapon_heavy"),
+                value = 'heavy',
+                description = Lang:t("desc.give_weapons")
+            }},
+            select = function(btn, newValue, oldValue)
+                TriggerServerEvent('qb-admin:server:giveallweapons', newValue, PlayerDetails.id)
+            end
+        })
     end)
     local elements = {
         [1] = {

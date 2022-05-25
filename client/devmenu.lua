@@ -156,10 +156,10 @@ DevMenuButton6:On('change', function(item, newValue, oldValue)
     if dev then
         SetPlayerInvincible(PlayerId(), true)
         while dev do
-            TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 5)
-            TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 5)
-            TriggerServerEvent('hud:server:RelieveStress', 10)
-            Wait(8000)
+            TriggerServerEvent("QBCore:Server:SetMetaData", "hunger", QBCore.Functions.GetPlayerData().metadata["hunger"] + 10)
+            TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + 10)
+            TriggerServerEvent('hud:server:RelieveStress', 20)
+            Wait(30000)
         end
         SetPlayerInvincible(PlayerId(), false)
     end
