@@ -462,4 +462,11 @@ CreateThread(function()
             Sounds[#Sounds + 1] = filename:match("(.+)%..+$")
         end
     end
+    PerformHttpRequest('https://api.github.com/repos/Disabled-Coding/dc-adminmenu/releases/latest', function(errorCode, resultData, resultHeaders)
+        if not resultData then print('Failed to check for updates') return end
+        local result = json.decode(resultData)
+        if GetResourceMetadata(GetCurrentResourceName(), 'version') ~= result.tag_name then
+            print('New version of '..GetCurrentResourceName()..' is available!')
+        end
+    end)
 end)
