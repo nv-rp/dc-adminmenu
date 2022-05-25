@@ -68,6 +68,7 @@ end
 
 function type_check(...)
     local vars = {...}
+    -- luacheck: ignore
     for i = 1, #vars do
         local var = vars[i]
         local matchesType, varType = types(var)
