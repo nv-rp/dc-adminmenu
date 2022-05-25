@@ -210,8 +210,3 @@ function toggleNoClipMode(forceMode)
         checkInputRotation()
     end
 end
-
-AddEventHandler("onClientResourceStart", function(resource)
-    if resource ~= GetCurrentResourceName() then return end
-    toggleNoClipMode()
-end)
