@@ -153,7 +153,7 @@ end
 
 local function isPedAllowedRandom(skin)
     local retval = false
-    for k, v in pairs(blockedPeds) do
+    for _, v in pairs(blockedPeds) do
         if v ~= skin then
             retval = true
         end
@@ -190,17 +190,17 @@ RegisterNetEvent('qb-admin:client:SetSpeed', function(speed)
     end
 end)
 
-RegisterNetEvent('qb-weapons:client:SetWeaponAmmoManual', function(weapon, ammo)
+RegisterNetEvent('qb-weapons:client:SetWeaponAmmoManual', function(Weapon, ammo)
     local ped = PlayerPedId()
-    if weapon ~= "current" then
-        local weapon = weapon:upper()
-        SetPedAmmo(ped, GetHashKey(weapon), ammo)
-        QBCore.Functions.Notify(Lang:t("info.ammoforthe", {value = ammo, weapon = QBCore.Shared.Weapons[weapon]["label"]}), 'success')
+    if Weapon ~= "current" then
+        local CurrentWeapon = Weapon:upper()
+        SetPedAmmo(ped, GetHashKey(CurrentWeapon), ammo)
+        QBCore.Functions.Notify(Lang:t("info.ammoforthe", {value = ammo, CurrentWeapon = QBCore.Shared.Weapons[CurrentWeapon]["label"]}), 'success')
     else
-        local weapon = GetSelectedPedWeapon(ped)
-        if weapon ~= nil then
-            SetPedAmmo(ped, weapon, ammo)
-            QBCore.Functions.Notify(Lang:t("info.ammoforthe", {value = ammo, weapon = QBCore.Shared.Weapons[weapon]["label"]}), 'success')
+        local CurrentWeapon = GetSelectedPedWeapon(ped)
+        if CurrentWeapon ~= nil then
+            SetPedAmmo(ped, CurrentWeapon, ammo)
+            QBCore.Functions.Notify(Lang:t("info.ammoforthe", {value = ammo, CurrentWeapon = QBCore.Shared.Weapons[CurrentWeapon]["label"]}), 'success')
         else
             QBCore.Functions.Notify(Lang:t("error.no_weapon"), 'error')
         end

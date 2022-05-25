@@ -150,7 +150,7 @@ local DevMenuButton6 = DevMenu:AddCheckbox({
     description = Lang:t("desc.hud_dev_mode_desc")
 })
 local dev = false
-DevMenuButton6:On('change', function(item, newValue, oldValue)
+DevMenuButton6:On('change', function()
     dev = not dev
     TriggerEvent('qb-admin:client:ToggleDevmode')
     if dev then
@@ -172,7 +172,7 @@ local DevMenuButton7 = DevMenu:AddCheckbox({
     description = Lang:t("desc.delete_laser_desc")
 })
 local deleteLazer = false
-DevMenuButton7:On('change', function(item, newValue, oldValue)
+DevMenuButton7:On('change', function()
     deleteLazer = not deleteLazer
 end)
 
@@ -182,7 +182,7 @@ local DevMenuButton8 = DevMenu:AddCheckbox({
     value = DevMenu,
     description = Lang:t("desc.noclip_desc")
 })
-DevMenuButton8:On('change', function(item, newValue, oldValue)
+DevMenuButton8:On('change', function()
     toggleNoClipMode()
 end)
 
@@ -213,7 +213,7 @@ local function RayCastGamePlayCamera(distance)
 		y = cameraCoord.y + direction.y * distance,
 		z = cameraCoord.z + direction.z * distance
 	}
-	local a, b, c, d, e = GetShapeTestResult(StartShapeTestRay(cameraCoord.x, cameraCoord.y, cameraCoord.z, destination.x, destination.y, destination.z, -1, PlayerPedId(), 0))
+	local _, b, c, _, e = GetShapeTestResult(StartShapeTestRay(cameraCoord.x, cameraCoord.y, cameraCoord.z, destination.x, destination.y, destination.z, -1, PlayerPedId(), 0))
 	return b, c, e
 end
 
@@ -237,7 +237,7 @@ local function DrawEntityBoundingBox(entity, color)
 		z = 0
     }
 
-    local FUR_bool, FUR_z = GetGroundZFor_3dCoord(FUR.x, FUR.y, 1000.0, 0)
+    local _, FUR_z = GetGroundZFor_3dCoord(FUR.x, FUR.y, 1000.0, 0)
     FUR.z = FUR_z
     FUR.z = FUR.z + 2 * dim.z
 
@@ -247,7 +247,7 @@ local function DrawEntityBoundingBox(entity, color)
         y = position.y - dim.y*rightVector.y - dim.x*forwardVector.y - dim.z*upVector.y,
         z = 0
     }
-    local BLL_bool, BLL_z = GetGroundZFor_3dCoord(FUR.x, FUR.y, 1000.0, 0)
+    local _, BLL_z = GetGroundZFor_3dCoord(FUR.x, FUR.y, 1000.0, 0)
     BLL.z = BLL_z
 
     -- DEBUG
@@ -320,7 +320,6 @@ CreateThread(function()	-- While loop needed for delete lazer
 		    local hit, coords, entity = RayCastGamePlayCamera(1000.0)
 		    -- If entity is found then verifie entity
 		    if hit and (IsEntityAVehicle(entity) or IsEntityAPed(entity) or IsEntityAnObject(entity)) then
-                local entityCoord = GetEntityCoords(entity)
                 DrawEntityBoundingBox(entity, color)
                 DrawLine(position.x, position.y, position.z, coords.x, coords.y, coords.z, color.r, color.g, color.b, color.a)
                 Draw2DText(Lang:t("info.health") .. ': ~g~'..GetEntityHealth(entity)..' ~w~' .. Lang:t("info.speed") .. ': ~b~'..GetEntitySpeed(entity)..'~w~', 4, {255, 255, 255}, 0.4, 0.55, 0.888 - 0.050)
