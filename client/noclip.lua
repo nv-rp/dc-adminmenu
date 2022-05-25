@@ -1,6 +1,6 @@
 local noClipEnabled = false
 local ent
-local Invisible
+local Invisible = nil
 local noClipCam = nil
 
 local speed = 1.0
@@ -205,7 +205,6 @@ function toggleNoClipMode(forceMode)
 		noClipEnabled = not noClipEnabled
 		inputRotEnabled = noClipEnabled
 	end
-    LocalPlayer.state.noClipEnabled = noClipEnabled
     if noClipEnabled and inputRotEnabled then
         toggleNoclip()
         checkInputRotation()
@@ -214,5 +213,5 @@ end
 
 AddEventHandler("onClientResourceStart", function(resource)
     if resource ~= GetCurrentResourceName() then return end
-    toggleNoClipMode(not not LocalPlayer.state.noClipEnabled)
+    toggleNoClipMode()
 end)

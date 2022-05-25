@@ -138,7 +138,7 @@ SelfMenuButton9:On('change', function()
     if infiniteammo then
         if GetAmmoInPedWeapon(ped, weapon) < 6 then SetAmmoInClip(ped, weapon, 10) Wait(50) end
         while infiniteammo do
-            local weapon = GetSelectedPedWeapon(ped)
+            weapon = GetSelectedPedWeapon(ped)
             SetPedInfiniteAmmo(ped, true, weapon)
             RefillAmmoInstantly(ped)
             Wait(250)

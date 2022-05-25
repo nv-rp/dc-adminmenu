@@ -39,7 +39,7 @@ MainMenu:AddButton({
         PlayerMenu:ClearItems()
         QBCore.Functions.TriggerCallback('qb-adminmenu:callback:getplayers', function(players)
             for _, v in pairs(players) do
-                local PlayerMenuButton = PlayerMenu:AddButton({
+                PlayerMenu:AddButton({
                     label = Lang:t("info.id") .. v["id"] .. ' | ' .. v["name"],
                     value = v,
                     description = Lang:t("info.player_name"),
