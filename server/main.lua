@@ -411,10 +411,10 @@ RegisterNetEvent('qb-admin:server:getradiolist', function(channel)
     TriggerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Pulled radiofrequency number **%s**",
     GetPlayerName(src), Player.PlayerData.citizenid, src, tonumber(channel)))
     for targetSource, _ in pairs(list) do -- cheers Knight who shall not be named
-        local Player = QBCore.Functions.GetPlayer(targetSource)
+        local _Player = QBCore.Functions.GetPlayer(targetSource)
         Players[#Players + 1] = {
             id = targetSource,
-            name = Player.PlayerData.charinfo.firstname .. ' ' .. Player.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(targetSource) .. ')'
+            name = _Player.PlayerData.charinfo.firstname .. ' ' .. _Player.PlayerData.charinfo.lastname .. ' | (' .. GetPlayerName(targetSource) .. ')'
         }
     end
     TriggerClientEvent('qb-admin:client:getradiolist', src, Players, channel)

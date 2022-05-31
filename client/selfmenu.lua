@@ -14,6 +14,8 @@ local SelfMenuButton2 = SelfMenu:AddButton({
 })
 SelfMenuButton2:On('select', function()
     TriggerEvent('hospital:client:Revive')
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Revived himself",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source))
 end)
 
 local SelfMenuButton3 = SelfMenu:AddCheckbox({
@@ -24,6 +26,8 @@ local SelfMenuButton3 = SelfMenu:AddCheckbox({
 local invisible = false
 SelfMenuButton3:On('change', function()
     invisible = not invisible
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set Invisible to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, invisible))
     if invisible then
         while invisible do
             Wait(0)
@@ -41,6 +45,8 @@ local SelfMenuButton4 = SelfMenu:AddCheckbox({
 local godmode = false
 SelfMenuButton4:On('change', function()
     godmode = not godmode
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set Godmode to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, godmode))
     if godmode then SetPlayerInvincible(PlayerId(), true)
     else SetPlayerInvincible(PlayerId(), false) end
 end)
@@ -71,6 +77,8 @@ local SelfMenuButton7 = SelfMenu:AddCheckbox({
 local vehiclegodmode = false
 SelfMenuButton7:On('change', function()
     vehiclegodmode = not vehiclegodmode
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set VehicleGodmode to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, vehiclegodmode))
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(ped, false)
     if vehiclegodmode then
@@ -133,6 +141,8 @@ local SelfMenuButton9 = SelfMenu:AddCheckbox({
 local infiniteammo = false
 SelfMenuButton9:On('change', function()
     infiniteammo = not infiniteammo
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set InfiniteAmmo to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, infiniteammo))
     local ped = PlayerPedId()
     local weapon = GetSelectedPedWeapon(ped)
     if infiniteammo then

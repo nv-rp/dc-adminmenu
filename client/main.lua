@@ -3,6 +3,7 @@ PlayerDetails = nil
 menuLocation = 'topright' -- e.g. topright (default), topleft, bottomright, bottomleft
 menuSize = 'size-125' -- e.g. 'size-100', 'size-110', 'size-125', 'size-150', 'size-175', 'size-200'
 r, g, b = 20, 255, 236 -- red, green, blue values for the menu background
+Admin = nil
 
 MainMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:mainmenu')
 SelfMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_options"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:selfmenu')
@@ -231,4 +232,14 @@ RegisterNetEvent('qb-admin:client:getsounds', function(sounds)
     end
 
     exports['qb-menu']:openMenu(soundMenu)
+end)
+
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    Admin = QBCore.Functions.GetPlayerData()
+end)
+
+AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+        Admin = QBCore.Functions.GetPlayerData()
+    end
 end)

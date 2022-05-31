@@ -204,6 +204,8 @@ function toggleNoClipMode(forceMode)
 	else
 		noClipEnabled = not noClipEnabled
 		inputRotEnabled = noClipEnabled
+        TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set NoClip to **%s**",
+        GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, noClipEnabled))
 	end
     if noClipEnabled and inputRotEnabled then
         toggleNoclip()

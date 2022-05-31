@@ -22,6 +22,8 @@ RegisterNetEvent('qb-admin:client:toggleBlips', function()
         ShowBlips = false
         QBCore.Functions.Notify(Lang:t("error.blips_deactivated"), "error")
     end
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set ShowBlips to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, ShowBlips))
 end)
 
 RegisterNetEvent('qb-admin:client:toggleNames', function()
@@ -34,6 +36,8 @@ RegisterNetEvent('qb-admin:client:toggleNames', function()
         ShowNames = false
         QBCore.Functions.Notify(Lang:t("error.names_deactivated"), "error")
     end
+    TriggerServerEvent('qb-log:server:CreateLog', 'admin', 'Admin menu', 'pink', string.format("**%s** (CitizenID: %s | ID: %s) - Set ToggleNames to **%s**",
+    GetPlayerName(PlayerId()), Admin.citizenid, Admin.source, ShowNames))
 end)
 
 RegisterNetEvent('qb-admin:client:Show', function(players)
