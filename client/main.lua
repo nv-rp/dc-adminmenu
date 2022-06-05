@@ -2,7 +2,7 @@ QBCore = exports['qb-core']:GetCoreObject()
 PlayerDetails = nil
 menuLocation = 'topright' -- e.g. topright (default), topleft, bottomright, bottomleft
 menuSize = 'size-125' -- e.g. 'size-100', 'size-110', 'size-125', 'size-150', 'size-175', 'size-200'
-r, g, b = 20, 255, 236 -- red, green, blue values for the menu background
+r, g, b = 1, 161, 150 -- red, green, blue values for the menu background
 Admin = nil
 
 MainMenu = MenuV:CreateMenu(false, Lang:t("menu.admin_menu"), menuLocation, r, g, b, menuSize, 'qbcore', 'menuv', 'qb-admin:mainmenu')
